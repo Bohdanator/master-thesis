@@ -1,0 +1,144 @@
+
+% \begin{figure}[h]
+%     \centering
+%     \begin{tikzpicture}
+%         \begin{scope}[every node/.style={circle,thick,draw}]
+%             \node (1) [fill=pink] at (0,0) {1};
+%             \node (2) at (xyz polar cs:angle=0, radius=2.5) {2};
+%             \node (3) at (xyz polar cs:angle=120, radius=2.5) {3};
+%             \node (4) at (xyz polar cs:angle=240, radius=2.5) {4};
+%         \end{scope}
+%         \begin{scope}[every node/.style={color=black}]
+%             \node (1c) [above=1pt of 1, color=red] {1};
+%             \node (2c) [above=1pt of 2] {0};
+%             \node (3c) [above=1pt of 3] {1};
+%             \node (4c) [above=1pt of 4] {-1};
+%         \end{scope}
+%         \begin{scope}[every edge/.style={draw,very thick}]
+%             \path
+%                 (1) edge (2)
+%                 (1) edge [dashed] (3)
+%                 (1) edge (4);
+%         \end{scope}
+%     \end{tikzpicture}
+%     \hspace*{0.15\textwidth}
+%     \begin{tikzpicture}
+%         \begin{scope}[every node/.style={circle,thick,draw}]
+%             \node (1) [fill=pink] at (0,0) {1};
+%             \node (2) at (xyz polar cs:angle=0, radius=2.5) {2};
+%             \node (3) at (xyz polar cs:angle=120, radius=2.5) {3};
+%             \node (4) at (xyz polar cs:angle=240, radius=2.5) {4};
+%         \end{scope}
+%         \begin{scope}[every node/.style={color=black}]
+%             \node (1c) [above=1pt of 1, color=red] {-1};
+%             \node (2c) [above=1pt of 2] {0};
+%             \node (3c) [above=1pt of 3] {1};
+%             \node (4c) [above=1pt of 4] {-1};
+%         \end{scope}
+%         \begin{scope}[every edge/.style={draw,very thick}]
+%             \path
+%                 (1) edge [dashed] (2)
+%                 (1) edge (3)
+%                 (1) edge [dashed] (4);
+%         \end{scope}
+%     \end{tikzpicture}
+%     \caption{Vertex coloring consistency under switching}
+% \end{figure}
+
+% \begin{figure}[h]
+%     \centering
+%     \begin{tikzpicture}
+%         \begin{scope}[every node/.style={circle,thick,draw,distance=1pt}, rotate=0]
+%             \node (1) [fill=pink, label={[red]10:0}, label={[red]155:-1}, label={[red]270:1}] at (0,0) {1};
+%             \node (2) [label=170:0] at (xyz polar cs:angle=0, radius=3) {2};
+%             \node (3) [label=270:1] at (xyz polar cs:angle=120, radius=3) {3};
+%             \node (4) [label=20:1] at (xyz polar cs:angle=240, radius=3) {4};
+%         \end{scope}
+%         \begin{scope}[every edge/.style={draw,very thick}]
+%             \path
+%                 (1) edge (2)
+%                 (1) edge [dashed] (3)
+%                 (1) edge (4);
+%         \end{scope}
+%     \end{tikzpicture}
+%     \hspace*{0.15\textwidth}
+%     \begin{tikzpicture}
+%         \begin{scope}[every node/.style={circle,thick,draw,distance=1pt}, rotate=0]
+%             \node (1) [fill=pink, label={[red]10:0}, label={[red]155:1}, label={[red]270:-1}] at (0,0) {1};
+%             \node (2) [label=170:0] at (xyz polar cs:angle=0, radius=3) {2};
+%             \node (3) [label=270:1] at (xyz polar cs:angle=120, radius=3) {3};
+%             \node (4) [label=20:1] at (xyz polar cs:angle=240, radius=3) {4};
+%         \end{scope}
+%         \begin{scope}[every edge/.style={draw,very thick}]
+%             \path
+%                 (1) edge [dashed] (2)
+%                 (1) edge (3)
+%                 (1) edge [dashed] (4);
+%         \end{scope}
+%     \end{tikzpicture}
+%     \caption[Edge coloring consistency under switching]{Edge coloring consistency under switching. Note the special behavior of the color $0$: the sign of edges colored $0$ is irrelevant.}
+% \end{figure}
+
+% \begin{figure}[h]\label{fig:switching}
+%     \centering
+%         \begin{tikzpicture}
+%             \begin{scope}[every node/.style={circle,thick,draw,fill=lightgray}]
+%                 \node (1) at (0,0) {1};
+%                 \node (2) at (3,0) {2};
+%                 \node (3) at (0,-3) {3};
+%             \end{scope}
+%             \begin{scope}[every node/.style={circle,thick,draw,fill=cyan}]
+%                 \node (4) at (4,-3) {4};
+%                 \node (5) at (5,-1) {5};
+%                 \node (6) at (1.5,-1.5) {6};
+%                 \node (7) at (2,-5) {7};
+%             \end{scope}
+%             \begin{scope}[every edge/.style={draw,dashed,very thick}]
+%                 \path
+%                     (1) edge (2)
+%                     (3) edge [color=red, ultra thick] (4)
+%                     (4) edge [color=blue] (7)
+%                     (5) edge [color=red, ultra thick] (2)
+%                     (6) edge [color=red, ultra thick] (3);
+%             \end{scope}
+%             \begin{scope}[every every edge/.style={draw,very thick}]
+%                 \path
+%                     (1) edge [color=red, ultra thick] (6)
+%                     (2) edge [color=red, ultra thick] (4)
+%                     (3) edge (1)
+%                     (4) edge [color=blue] (5)
+%                     (4) edge [color=blue] (6);
+%             \end{scope}
+
+%             \draw [ultra thick, ->] (5.5,-2) -- (7,-2);
+
+%             \begin{scope}[every node/.style={circle,thick,draw,fill=lightgray}]
+%                 \node (11) at (8,0) {1'};
+%                 \node (21) at (11,0) {2'};
+%                 \node (31) at (8,-3) {3'};
+%             \end{scope}
+%             \begin{scope}[every node/.style={circle,thick,draw,fill=cyan}]
+%                 \node (41) at (12,-3) {4'};
+%                 \node (51) at (13,-1) {5'};
+%                 \node (61) at (9.5,-1.5) {6'};
+%                 \node (71) at (10,-5) {7'};
+%             \end{scope}
+%             \begin{scope}[every edge/.style={draw,dashed,very thick}]
+%                 \path
+%                     (21) edge [color=red, ultra thick] (41)
+%                     (11) edge [color=red, ultra thick] (61)
+%                     (11) edge (21)
+%                     (41) edge [color=blue] (71);
+%             \end{scope}
+%             \begin{scope}[every edge/.style={draw,very thick}]
+%                 \path
+%                     (31) edge (11)
+%                     (41) edge [color=blue] (51)
+%                     (41) edge [color=blue] (61)
+%                     (31) edge [color=red, ultra thick] (41)
+%                     (51) edge [color=red, ultra thick] (21)
+%                     (61) edge [color=red, ultra thick] (31);
+%             \end{scope}
+%         \end{tikzpicture}
+%     \caption[Switching example]{Switching example. Note that switching blue vertices and switching grey vertices results in the same transformation.}
+% \end{figure}

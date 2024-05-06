@@ -1,0 +1,27 @@
+\chapter{Generating signed snarks}
+
+Since the structure of snarks is generally unknown, the most efficient way of systematically generating snarks is still a brute-force approach.
+
+\section{Chromatic index}
+
+To determine the chromatic index of a cubic graph is an NP-complete problem. By extension, determining the chromatic index of a signed cubic graph is also NP-complete, because of the trivial reduction from signed chromatic index problem to unsigned chromatic index problem. Instead of designing an algorithm we decided to implement a conversion from the chromatic index problem to 3SAT and using a highly optimized SAT solver anticipating better effectiveness.
+
+\subsection{Conversion to 3SAT}
+
+For any cubic signed graph $\Gamma$ we will construct a 3SAT formula $F$ that is satisfiable if and only if the graph is 3-colorable. There will be three variables for each half-edge of $\Gamma$, one for each color from $C_3 = \{-1, 0, 1\}$. In any evaluation of these variables that satisfy $F$ exactly one of them will be true denoting the color of the half-edge.
+
+\section{Equivalence}
+
+Signed graphs can be equivalent in a combination two ways, switching-equivalent or isomorphic. Let's explore the switching equivalence first.
+
+\subsection{Signed equivalence classes}
+
+On any base graph $G$ there are $2^{|E(G)|}$ possible signed graphs. Zaslavsky\todo{cite exact article} enumerated the switching equivalence classes and described a representative for each class.
+
+\begin{lemma}\label{lem1:eq-classes}
+    Let $G$ be a simple unsigned base graph and $T \subseteq E(G)$ a spanning tree of $G$. Then all signed graphs that have an all-positive signature on $T$ are not switching-equivalent and each equivalence class based on $G$ has exactly one representative among them.
+\end{lemma}
+
+\textit{Proof}. Take any signed graph constructed this way. Switching no vertices and all vertices results in the same graph. To obtain a different graph, at least one vertex will not be switched and at least one vertex will be switched. The set of switched vertices $A \neq \emptyset$ and the set of untouched vertices $B \neq \emptyset$ are a partition of $V(G)$. Since $G$ is connected, there is at least one edge between $A$ and $B$ and at least one of them is in $T$. This edge will change its sign based on the definition of switching. So any graph we obtain by switching one of the graphs from \cref{lem1:eq-classes} will not be all-positive on $T$, making all these graphs belong to different equivalence classes. \qed
+
+According to \Cref{lem1:eq-classes}, on a base cubic graph with $n$ vertices there are $2^{\frac{n}{2}+1}$ equivalence classes, one for each signature of edges that are not in the spanning tree.
