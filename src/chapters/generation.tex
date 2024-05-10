@@ -2,13 +2,31 @@
 
 Since the structure of snarks is generally unknown, the most efficient way of systematically generating snarks is still a brute-force approach.
 
-\section{Chromatic index}
+\section{Chromatic index problem}
 
 To determine the chromatic index of a cubic graph is an NP-complete problem. By extension, determining the chromatic index of a signed cubic graph is also NP-complete, because of the trivial reduction from signed chromatic index problem to unsigned chromatic index problem. Instead of designing an algorithm we decided to implement a conversion from the chromatic index problem to 3SAT and using a highly optimized SAT solver anticipating better effectiveness.
 
 \subsection{Conversion to 3SAT}
 
-For any cubic signed graph $\Gamma$ we will construct a 3SAT formula $F$ that is satisfiable if and only if the graph is 3-colorable. There will be three variables for each half-edge of $\Gamma$, one for each color from $C_3 = \{-1, 0, 1\}$. In any evaluation of these variables that satisfy $F$ exactly one of them will be true denoting the color of the half-edge.
+For any cubic signed graph $\Gamma$ we will construct a 3SAT formula $F(\Gamma)$ that is satisfiable if and only if the graph is 3-colorable. There will be three literals for each half-edge $ev$ of $\Gamma$, one for each color from $C_3 = \{-1, 0, 1\}$. Let these be $x^{-1}_{ev}$, $x^{0}_{ev}$ and $x^{1}_{ev}$. In any evaluation of these literals that satisfy $F$ exactly one of them will be true denoting the color of the half-edge. This will be guaranteed using three constituent formulas. Let $\Gamma = ((V, E), \sigma)$
+
+$$F_1 = \bigwedge _{e = vw \in E} (x^{-1}_{ev} \vee x^{0}_{ev} \vee x^{1}_{ev}) \wedge (x^{-1}_{ew} \vee x^{0}_{ew} \vee x^{1}_{ew}) $$
+
+The first formula ensures that each half-edge is colored and is the only set containing clauses of length 3. The next formula will enforce the correctness of the coloring, restricting the colors of half edges that for one complete edge. Illegal signatures for each edge are negated using DeMorgan rules, resulting in a convenient CNF form. No edge can be colored $0$ on one side and $1$ or $-1$ on the other ($\neg (x^{0}_{ev} \land x^{1}_{ew}) = (\neg x^{0}_{ev} \lor \neg x^{1}_{ew})$) and the colors must be the same if the edge is positive ($(\neg x^{1}_{ev} \lor \neg x^{-1}_{ew})$) and opposite if the edge is negative ($(\neg x^{1}_{ev} \lor \neg x^{1}_{ew})$).
+
+$$F_2 = \bigwedge _{e = vw \in E} (\neg x^{0}_{ev} \vee \neg x^{1}_{ew}) \wedge (\neg x^{0}_{ev} \vee \neg x^{-1}_{ew}) \wedge (\neg x^{-1}_{ev} \lor \neg x^{\sigma (e, w)}_{ew}) \land (\neg x^{1}_{ev} \lor \neg x^{-\sigma (e, w)}_{ew}) \wedge (\dots v \rightleftarrows w \dots) $$
+
+Lastly we need to ensure the coloring is proper. Let $N(v) = \{(v, w) ~|~ (v,w) \in E; ~ w \in V \}$ be the set of edges incident to $v$.
+
+$$F_3 = \bigwedge _{\substack{v \in V \\ e_1, e_2 \in N(v); ~ e_1 \neq e_2}} (\neg x^{-1}_{e_1v} \lor \neg x^{-1}_{e_2v}) \land (\neg x^{0}_{e_1v} \lor \neg x^{0}_{e_2v}) \land (\neg x^{1}_{e_1v} \lor \neg x^{1}_{e_2v}) $$
+
+Each pair of half-edges with a common vertex has to have different colors. Note that we don't need to explicitly ensure that for each half-edge exactly one literal is true, only that at least one is true, because it is a consequence of the properness of the coloring.
+
+\begin{theorem}
+    3SAT formula $F(\Gamma) = F_1 \wedge F_2 \wedge F_3$ constructed in the way described above is satisfiable if and only if $\Gamma$ is 3-colorable.
+\end{theorem}
+
+\textit{Proof.} Follows from the construction of $F$ encapsulating all properties of a proper signed 3-coloring. \qed
 
 \section{Equivalence}
 
@@ -24,4 +42,4 @@ On any base graph $G$ there are $2^{|E(G)|}$ possible signed graphs. Zaslavsky\t
 
 \textit{Proof}. Take any signed graph constructed this way. Switching no vertices and all vertices results in the same graph. To obtain a different graph, at least one vertex will not be switched and at least one vertex will be switched. The set of switched vertices $A \neq \emptyset$ and the set of untouched vertices $B \neq \emptyset$ are a partition of $V(G)$. Since $G$ is connected, there is at least one edge between $A$ and $B$ and at least one of them is in $T$. This edge will change its sign based on the definition of switching. So any graph we obtain by switching one of the graphs from \cref{lem1:eq-classes} will not be all-positive on $T$, making all these graphs belong to different equivalence classes. \qed
 
-According to \Cref{lem1:eq-classes}, on a base cubic graph with $n$ vertices there are $2^{\frac{n}{2}+1}$ equivalence classes, one for each signature of edges that are not in the spanning tree.
+According to \Cref{lem1:eq-classes}, on a base cubic graph with $n$ vertices there are $2^{\frac{n}{2}+1}$ equivalence classes, one for each signature of edges that are not in the spanning tree. Note that $\frac{n}{2}$ is always an integer since the number of vertices in a cubic graph is even.
