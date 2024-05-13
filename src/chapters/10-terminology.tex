@@ -8,19 +8,19 @@ Using the standard notation we write $G$ for a graph and $V(G)$ and $E(G)$ for i
 We assume no graph constraints unless otherwise specified, e. g. loops and duplicit edges are generally allowed.
 
 We write $e = vw \in E(G)$ to indicate that the edge $e$ of $G$ has endpoints $v$ and $w$.
-In the context of edge and vertex coloring it makes sense to define the next terms. In \textit{regular graphs} all vertices have the same degree, specifically
+In the context of edge and vertex colouring it makes sense to define the next terms. In \textit{regular graphs} all vertices have the same degree, specifically
 a \textit{k-regular} graph is a graph where each vertex has degree exactly $k$ (there is no vertex with more than $k$ edges).
-A \textit{cubic} graph is a 3-regular graph. 
+A \textit{cubic} graph is a 3-regular graph.
 A \textit{circuit} is a connected 2-regular subgraph. A \textit{factor} of a graph $G$ is a \textit{spanning subgraph} (a subgraph covering all vertices of $G$).
 A \textit{k-factor} is a k-regular spanning subgraph and \textit{k-factorization} partitions all edges of $G$ into disjoint k-factors.
-A circuit is \textit{positive} if the product of its edge signs is positive and 
+A circuit is \textit{positive} if the product of its edge signs is positive and
 \textit{negative} otherwise. In the context of flows in signed graphs, we will be talking about \textit{signed circuits}
 as the signed equivalent to circuits on unsigned graphs.
-A \textit{chromatic number} of a graph $G$ is the number of colors required for a proper vertex coloring of said graph.
+A \textit{chromatic number} of a graph $G$ is the number of colours required for a proper vertex colouring of said graph.
 
 \section{Signed graphs}
 
-Signed graphs were introduced by Harary\cite{harary} in 1953 as a model for social networks. 
+Signed graphs were introduced by Harary\cite{harary} in 1953 as a model for social networks.
 A signed graph has a value of $+1$ or $-1$ assigned to all edges, so each edge is positive or negative.
 They have been proven to be a natural generalization of unsigned graphs in many ways and interesting observations may arise
 by applying ordinary graph theory to signed graphs.
@@ -33,7 +33,7 @@ A signed graph can also be defined as a pair $(G, \sigma)$ using the sign functi
 but I found this definition more natural.
 
 Given a signed graph $(G, \Sigma)$, \textit{switching} at a vertex $v$ inverts the sign of each edge
-incident with $v$. 
+incident with $v$.
 
 Using the previously mentioned definition of a signed graph, the resulting graph after a switching
 is the symmetric difference of $\Sigma$ and the set of edges incident with $v$.
@@ -41,8 +41,8 @@ is the symmetric difference of $\Sigma$ and the set of edges incident with $v$.
 Two graphs are \textit{equivalent} if one can be obtained from the other through a series of vertex switchings.
 Switching equivalence is an equivalence relation and we write $[(G, \Sigma)]$ for an equivalence class of $(G, \Sigma)$ under this relation.
 
-Additionally, switching doesn't change the signs of circuits in a graph, so two signed graphs 
-are equivalent if their underlying graphs and the signs of all circuits are the same. 
+Additionally, switching doesn't change the signs of circuits in a graph, so two signed graphs
+are equivalent if their underlying graphs and the signs of all circuits are the same.
 Consequently, all properties depending only on the signs of the circuits are invariant for all graphs in $[(G, \Sigma)]$.
 
 A signed graph is \textit{balanced} if all of its circuits are positive and unblanaced otherwise.
@@ -60,55 +60,55 @@ Harary\cite{harary} characterized balanced graphs:
 A signed graph $(G, \Sigma)$ is balanced if and only if there is a set $X \subseteq V(G)$ such that $\Sigma = [X, V(G) - X]$.
 \end{theorem}
 
-\section{Vertex coloring}
+\section{Vertex colouring}
 
-Vertex and edge coloring is a deeply explored topic of graph theory, even in the field of signed graphs.
-The research was initiated by Zaslavsky\cite{zaslavsky-graphs} in the early 1980s and his results were published in multiple seminary papers\cite{zaslavsky-invariants,zaslavsky-coloring,zaslavsky-colorful}.
+Vertex and edge colouring is a deeply explored topic of graph theory, even in the field of signed graphs.
+The research was initiated by Zaslavsky\cite{zaslavsky-graphs} in the early 1980s and his results were published in multiple seminary papers\cite{zaslavsky-invariants,zaslavsky-colouring,zaslavsky-colourful}.
 Máčajová, Raspaud and Škoviera expand on this topic in The chromatic number of a signed graph\cite{chromatic-number},
-focusing on the behaviour of colorings instead of the polynomial invariants, which Zaslavsky concentrated on in his research.
+focusing on the behaviour of colourings instead of the polynomial invariants, which Zaslavsky concentrated on in his research.
 
-A \textit{proper vertex coloring} of a signed graph $(G, \Sigma)$ is 
+A \textit{proper vertex colouring} of a signed graph $(G, \Sigma)$ is
 $\phi : V(E) \rightarrow \mathbb{Z}$
 where for each edge $e = vw \in E(G)$: $\phi (v) \neq \sigma (e) \phi (w)$.
 
-Vertices connected by a positive edge must not have the same color and vertices connected by a negative edge must not have opposite colors.
+Vertices connected by a positive edge must not have the same colour and vertices connected by a negative edge must not have opposite colours.
 
 This definition is natural mainly because of the consistency under vertex switching, but also other reasons discussed by Zaslavsky.
-What is not as natural is the first attempt at a set of signed colors. 
-Unlike colorings on unsigned graphs, here it is practical to assign signed colors from $\mathbb{Z}$ and so arises the problem of defining a signed color set of $k$ colors.
-Zaslavsky originally defined the coloring of a signed graph in $k$ colors or $2k+1$ signed colors as 
-a mapping $V(G) \rightarrow \{-k, -(k-1), \dots, -1,0,1, \dots , (k-1), k\}$. 
-A coloring is zero-free if no vertex is colored 0. He then defined the \textit{chromatic polynomial} $\chi _G (\lambda)$ to be the function
-whose values for negative arguments $\lambda = 2k + 1$ are the numbers of signed colorings in $k$ colors. The \textit{balanced chromatic polynomial}
+What is not as natural is the first attempt at a set of signed colours.
+Unlike colourings on unsigned graphs, here it is practical to assign signed colours from $\mathbb{Z}$ and so arises the problem of defining a signed colour set of $k$ colours.
+Zaslavsky originally defined the colouring of a signed graph in $k$ colours or $2k+1$ signed colours as
+a mapping $V(G) \rightarrow \{-k, -(k-1), \dots, -1,0,1, \dots , (k-1), k\}$.
+A colouring is zero-free if no vertex is coloured 0. He then defined the \textit{chromatic polynomial} $\chi _G (\lambda)$ to be the function
+whose values for negative arguments $\lambda = 2k + 1$ are the numbers of signed colourings in $k$ colours. The \textit{balanced chromatic polynomial}
 $\chi _G ^b (\lambda)$ defined
-for positive arguments $\lambda = 2k$ are the numbers of zero-free signed colorings in $k$ colors.
-Finally, the \textit{chromatic number} $\gamma(G)$ of $G$ is the smallest non-negative integer $k$ such that $\chi (2k+1) > 0$ and the \textit{strict chromatic number} $\gamma * (G)$ is the 
+for positive arguments $\lambda = 2k$ are the numbers of zero-free signed colourings in $k$ colours.
+Finally, the \textit{chromatic number} $\gamma(G)$ of $G$ is the smallest non-negative integer $k$ such that $\chi (2k+1) > 0$ and the \textit{strict chromatic number} $\gamma * (G)$ is the
 same for the balanced chromatic polynomial $\chi _G ^b (2k) > 0$.
 
-The Zaslavsky's definitions are sound, but they are not direct extensions of the chromatic polynomials and chromatic number for 
-unsigned graphs. That is because they basically count the absolute values of colors. It makes sense to require a signed version of any graph invariant to agree with its underlying graph for balanced signed graphs.
+The Zaslavsky's definitions are sound, but they are not direct extensions of the chromatic polynomials and chromatic number for
+unsigned graphs. That is because they basically count the absolute values of colours. It makes sense to require a signed version of any graph invariant to agree with its underlying graph for balanced signed graphs.
 Máčajová et. al.\cite{chromatic-number} instead propose different definitions.
 They first define sets $M_n \subseteq \mathbb{Z}$ for each $n \geq 1$ as $M_n = \{\pm 1, \pm 2, \dots , \pm k\}$ if $n = 2k$; $k \in \mathbb{N}$
 and $M_n = \{0, \pm 1, \pm 2, \dots , \pm k\}$ if $n = 2k + 1$ respectively.
-We can then define a \textit{proper n-coloring} that uses colors from $M_n$. The smallest $n$ such that 
-an \textit{n-coloring} exists. In comparison to Zaslavsky, this way an n-coloring uses exactly $n$ colors.
+We can then define a \textit{proper n-colouring} that uses colours from $M_n$. The smallest $n$ such that
+an \textit{n-colouring} exists. In comparison to Zaslavsky, this way an n-colouring uses exactly $n$ colours.
 
-\section{Edge coloring}
+\section{Edge colouring}
 
-In Edge coloring of signed graphs\cite{behr-edge-coloring}, Behr adopts the signed color sets defined by Máčajová et. al. and using these signed colors 
-defines a proper edge coloring on signed graphs.
+In Edge colouring of signed graphs\cite{behr-edge-colouring}, Behr adopts the signed colour sets defined by Máčajová et. al. and using these signed colours
+defines a proper edge colouring on signed graphs.
 
-An \textit{n-edge coloring} $\gamma$ of $(G, \Gamma)$ is an assignment of colors from $M_n$ to each vertex-edge incidence of $G$ such that $\gamma (v, e)$ = $- \sigma (e) \gamma(w,e)$ for each edge $e = vw$.
-If an edge $e$ exists such that $\gamma (v,e) = a$, then the color $a$ is present at $v$.
+An \textit{n-edge colouring} $\gamma$ of $(G, \Gamma)$ is an assignment of colours from $M_n$ to each vertex-edge incidence of $G$ such that $\gamma (v, e)$ = $- \sigma (e) \gamma(w,e)$ for each edge $e = vw$.
+If an edge $e$ exists such that $\gamma (v,e) = a$, then the colour $a$ is present at $v$.
 
-The same condition for a \textit{proper n-edge coloring} applies to the signed version, no color can be present more than once at any vertex.
-The \textit{chromatic index} of a signed graph $(G, \Gamma)$ $\chi ' ((G, \Gamma))$ is the smallest $n$ such that $(G, \Gamma)$ is n-edge-colorable.
+The same condition for a \textit{proper n-edge colouring} applies to the signed version, no colour can be present more than once at any vertex.
+The \textit{chromatic index} of a signed graph $(G, \Gamma)$ $\chi ' ((G, \Gamma))$ is the smallest $n$ such that $(G, \Gamma)$ is n-edge-colourable.
 
-Coloring each vertex-edge incidence makes signed edge coloring particularly interesting. 
-This definition also behaves naturally under switching; if we switch a vertex and all colors present at said vertex, the coloring remains consistent.
-But again, we have to be mindful of the color $0$ as in the case of vertex coloring.
+colouring each vertex-edge incidence makes signed edge colouring particularly interesting.
+This definition also behaves naturally under switching; if we switch a vertex and all colours present at said vertex, the colouring remains consistent.
+But again, we have to be mindful of the colour $0$ as in the case of vertex colouring.
 
-We can observe that negative edges behave in the same way as unsigned edges. 
-So each proper n-edge coloring of an all-negative signed graph corresponds to a proper unsigned edge coloring of its underlying graph.
+We can observe that negative edges behave in the same way as unsigned edges.
+So each proper n-edge colouring of an all-negative signed graph corresponds to a proper unsigned edge colouring of its underlying graph.
 This is one of the reasons for the importance of natural definitions: the signed graphs themselves are in a way a generalization of unsigned graphs, so in the field of signed graphs, we are looking for natural generalizations
-of concepts defined on unsigned graphs. 
+of concepts defined on unsigned graphs.

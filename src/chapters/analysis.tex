@@ -31,7 +31,7 @@ We found all signed snarks up to 18 vertices.
     \caption[Basic signed graph data]{Basic signed graph data. Here signed snarks were not yet filtered for isomorphisms.}
 \end{figure}
 
-The smallest signed snark is smaller than the Petersen graph (smallest snark), it is the projection of a 3D cube.
+The smallest signed snark is smaller than the Petersen graph (smallest snark), it is the projection of a cube.
 
 \begin{figure}[h]
     \centering
@@ -65,9 +65,9 @@ The smallest signed snark is smaller than the Petersen graph (smallest snark), i
     \caption{Smallest snark}
 \end{figure}
 
-Similarly to regular snarks, there are trivial properties of signed graphs that don't allow the possibility of a 3-edge-coloring. The following unsigned graph is the smallest graph that doesn't have a 3-edge-colorable signature.
+Similarly to regular snarks, there are trivial properties of signed graphs that don't allow the possibility of a 3-edge-colouring. The following unsigned graph is the smallest graph that doesn't have a 3-edge-colourable signature.
 
-\begin{figure}[h]\label{smallest-uncolorable}
+\begin{figure}[h]\label{smallest-uncolourable}
     \centering
     \begin{tikzpicture}[scale=0.6]
         \begin{scope}[every node/.style={circle,draw,fill=black,rotate=30}]
@@ -154,13 +154,17 @@ Similarly to regular snarks, there are trivial properties of signed graphs that 
         \end{scope}
     \end{tikzpicture}
 
-    \caption[Smallest simple graph without a 3-edge-colorable signature]{Smallest simple graph without a 3-edge-colorable signature and a simplified version allowing duplicate edges.}
+    \caption[Smallest simple graph without a 3-edge-colourable signature]{Smallest simple graph without a 3-edge-colourable signature and a simplified version allowing duplicate edges.}
 \end{figure}
 
 \begin{theorem}
-    An unsigned graph $G$ has a signature that admits a 3-edge-coloring if and only if it has a 1-factor (1-regular subgraph with the same vertex set).
+    An unsigned graph $G$ has a signature that admits a 3-edge-colouring if and only if it has a 1-factor (1-regular subgraph with the same vertex set).
 \end{theorem}
 
-\textit{Proof.} If there is a signature and a 3-edge-coloring on it, the edges colored $0$ form by the definition of a proper edge coloring a perfect matching. Now let $M \subseteq E(G)$ be a 1-factor. Let's assign the color $0$ to these edges again and remove them from $G$. After removing a 1-factor from a cubic graph we obtain a 2-factor, a set of disjunct cycles (if two cycles would have a common vertex, its degree in the original graph would have to be at least 4). According to \Cref{th:brooks} for the cycles to be colorable, we assign any balanced signature to even cycles and any unbalanced signature to odd cycles. All cycles from this 2-factor will now be 2-edge-colorable with colors $1$ and $-1$ and combined with the $0$-colored 1-factor we obtain a 3-edge-colorable signed cubic graph. \qed
+\textit{Proof.} If there is a signature and a 3-edge-colouring on it, the edges coloured $0$ form by the definition of a proper edge colouring a perfect matching. Now let $M \subseteq E(G)$ be a 1-factor. Let's assign the colour $0$ to these edges again and remove them from $G$. After removing a 1-factor from a cubic graph we obtain a 2-factor, a set of disjunct cycles (if two cycles would have a common vertex, its degree in the original graph would have to be at least 4). According to \Cref{th:brooks} for the cycles to be colourable, we assign any balanced signature to even cycles and any unbalanced signature to odd cycles. All cycles from this 2-factor will now be 2-edge-colourable with colours $1$ and $-1$ and combined with the $0$-coloured 1-factor we obtain a 3-edge-colourable signed cubic graph. \qed
 
-The graph in \Cref{smallest-uncolorable} has no 1-factor. (The middle vertex has to be connected to one of the three triangles and the other two triangles will not have a matching.)
+The graph in \Cref{smallest-uncolourable} has no 1-factor. (The middle vertex has to be connected to one of the three triangles and the other two triangles will not have a matching.)
+
+\subsection{Future research}
+
+There are multiple directions we intend to take our research into this topic in the future. The analysis of small signed snarks can be taken further by inspecting different classes of graphs and searching for similarities. By optimizing the filtering algorithm, bigger graphs can be included.

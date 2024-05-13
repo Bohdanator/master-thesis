@@ -8,25 +8,25 @@ To determine the chromatic index of a cubic graph is an NP-complete problem. By 
 
 \subsection{Conversion to 3SAT}
 
-For any cubic signed graph $\Gamma$ we will construct a 3SAT formula $F(\Gamma)$ that is satisfiable if and only if the graph is 3-colorable. There will be three literals for each half-edge $ev$ of $\Gamma$, one for each color from $C_3 = \{-1, 0, 1\}$. Let these be $x^{-1}_{ev}$, $x^{0}_{ev}$ and $x^{1}_{ev}$. In any evaluation of these literals that satisfy $F$ exactly one of them will be true denoting the color of the half-edge. This will be guaranteed using three constituent formulas. Let $\Gamma = ((V, E), \sigma)$
+For any cubic signed graph $\Gamma$ we will construct a 3SAT formula $F(\Gamma)$ that is satisfiable if and only if the graph is 3-colourable. There will be three literals for each half-edge $ev$ of $\Gamma$, one for each colour from $C_3 = \{-1, 0, 1\}$. Let these be $x^{-1}_{ev}$, $x^{0}_{ev}$ and $x^{1}_{ev}$. In any evaluation of these literals that satisfy $F$ exactly one of them will be true denoting the colour of the half-edge. This will be guaranteed using three constituent formulas. Let $\Gamma = ((V, E), \sigma)$
 
 $$F_1 = \bigwedge _{e = vw \in E} (x^{-1}_{ev} \vee x^{0}_{ev} \vee x^{1}_{ev}) \wedge (x^{-1}_{ew} \vee x^{0}_{ew} \vee x^{1}_{ew}) $$
 
-The first formula ensures that each half-edge is colored and is the only set containing clauses of length 3. The next formula will enforce the correctness of the coloring, restricting the colors of half edges that for one complete edge. Illegal signatures for each edge are negated using DeMorgan rules, resulting in a convenient CNF form. No edge can be colored $0$ on one side and $1$ or $-1$ on the other ($\neg (x^{0}_{ev} \land x^{1}_{ew}) = (\neg x^{0}_{ev} \lor \neg x^{1}_{ew})$) and the colors must be the same if the edge is positive ($(\neg x^{1}_{ev} \lor \neg x^{-1}_{ew})$) and opposite if the edge is negative ($(\neg x^{1}_{ev} \lor \neg x^{1}_{ew})$).
+The first formula ensures that each half-edge is coloured and is the only set containing clauses of length 3. The next formula will enforce the correctness of the colouring, restricting the colours of half edges that for one complete edge. Illegal signatures for each edge are negated using DeMorgan rules, resulting in a convenient CNF form. No edge can be coloured $0$ on one side and $1$ or $-1$ on the other ($\neg (x^{0}_{ev} \land x^{1}_{ew}) = (\neg x^{0}_{ev} \lor \neg x^{1}_{ew})$) and the colours must be the same if the edge is positive ($(\neg x^{1}_{ev} \lor \neg x^{-1}_{ew})$) and opposite if the edge is negative ($(\neg x^{1}_{ev} \lor \neg x^{1}_{ew})$).
 
 $$F_2 = \bigwedge _{e = vw \in E} (\neg x^{0}_{ev} \vee \neg x^{1}_{ew}) \wedge (\neg x^{0}_{ev} \vee \neg x^{-1}_{ew}) \wedge (\neg x^{-1}_{ev} \lor \neg x^{\sigma (e, w)}_{ew}) \land (\neg x^{1}_{ev} \lor \neg x^{-\sigma (e, w)}_{ew}) \wedge (\dots v \rightleftarrows w \dots) $$
 
-The first four clauses illustrate the condition from the "perspective" of $v$, they will be repeated for $w$ as well by switching instances of $v$ and $w$. Lastly we need to ensure the coloring is proper. Let $N(v) = \{(v, w) ~|~ (v,w) \in E; ~ w \in V \}$ be the set of edges incident to $v$.
+The first four clauses illustrate the condition from the "perspective" of $v$, they will be repeated for $w$ as well by switching instances of $v$ and $w$. Lastly we need to ensure the colouring is proper. Let $N(v) = \{(v, w) ~|~ (v,w) \in E; ~ w \in V \}$ be the set of edges incident to $v$.
 
 $$F_3 = \bigwedge _{\substack{v \in V \\ e_1, e_2 \in N(v); ~ e_1 \neq e_2}} (\neg x^{-1}_{e_1v} \lor \neg x^{-1}_{e_2v}) \land (\neg x^{0}_{e_1v} \lor \neg x^{0}_{e_2v}) \land (\neg x^{1}_{e_1v} \lor \neg x^{1}_{e_2v}) $$
 
-Each pair of half-edges with a common vertex has to have different colors. Note that we don't need to explicitly ensure that for each half-edge exactly one literal is true, only that at least one is true, because it is a consequence of the properness of the coloring.
+Each pair of half-edges with a common vertex has to have different colours. Note that we don't need to explicitly ensure that for each half-edge exactly one literal is true, only that at least one is true, because it is a consequence of the properness of the colouring.
 
 \begin{theorem}
-    3SAT formula $F(\Gamma) = F_1 \wedge F_2 \wedge F_3$ constructed in the way described above is satisfiable if and only if $\Gamma$ is 3-colorable.
+    3SAT formula $F(\Gamma) = F_1 \wedge F_2 \wedge F_3$ constructed in the way described above is satisfiable if and only if $\Gamma$ is 3-colourable.
 \end{theorem}
 
-\textit{Proof.} Follows from the construction of $F$ encapsulating all properties of a proper signed 3-coloring. \qed
+\textit{Proof.} Follows from the construction of $F$ encapsulating all properties of a proper signed 3-colouring. \qed
 
 \section{Equivalence}
 
@@ -70,4 +70,4 @@ Finding the canonical form is as hard as determining whether two graphs are isom
 
 \section{Implementation}
 
-We achieved our results using the following implementation. The programming language of choice was C++ over Python due to its speed and a base of tools for graph computation. We implement a simple data structure to represent signed graphs as opposed to nauty\todo{cite} and other optimized structures because there is little support for signed graphs "out of the box". Additionally, there is no need to optimize for the graph size. Cubic graphs and unsigned snarks are generated using snarkhunter\todo{cite}. Our SAT solver of choice is the winner of the SAT Competition 2020\cite{SAT-Competition-2020-solvers}, kissat. It is a \say{condensed and improved reimplementation of CaDiCaL in C}.
+We achieved our results using the following implementation. The programming language of choice was C++ over Python due to its speed and a base of tools for graph computation. We implement a simple data structure to represent signed graphs as opposed to nauty and other optimized structures because there is little support for signed graphs "out of the box". Additionally, there is no need to optimize for the graph size. Cubic graphs and unsigned snarks are generated using snarkhunter. Our SAT solver of choice is the winner of the SAT Competition 2020\cite{SAT-Competition-2020-solvers}, kissat. It is a \say{condensed and improved reimplementation of CaDiCaL in C}.

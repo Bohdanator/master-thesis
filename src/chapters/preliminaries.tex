@@ -4,7 +4,7 @@ First, let's define some basic concepts of graph theory, starting with the graph
 
 \section{Graphs}
 
-A graph is an algebraic structure most commonly used to describe relationships between objects. There are many definitions of a graph. The most abstract definition of a graph is simply a set $V$ and a relation $R$ on $V$ denoting which elements of $V$ are connected. Graphs in general are \textit{directed}, if $R$ is symmetric, the graph is \textit{undirected}. For the purposes of this work we will be using a geometric definition and generally undirected graphs.
+A graph is an algebraic structure most commonly used to describe relationships between objects. There are many definitions of a graph. The most abstract definition of a graph is simply a set $V$ and a relation $R$ on $V$ denoting which elements of $V$ are connected. Graphs in general are \textit{directed}; if $R$ is symmetric, the graph is \textit{undirected}. For the purposes of this work we will be using a geometric definition and generally undirected graphs.
 
 \begin{definition}
     An undirected graph is an ordered pair $G = (V, E)$, where $V$ is a set of \textit{vertices} and $E$ is a set of edges, i. e. a set of unordered pairs of vertices $\forall e \in E: ~ e = (u,v); u,v \in V$.
@@ -39,24 +39,24 @@ As an example, the $K_4$ graph is cubic.
 
 In general statements about graphs in later chapters, we are referring to unordered cubic graphs.
 
-\subsection{Coloring}
+\subsection{Colouring}
 
-When simple binary relationships between objects are not enough, weighted graphs and coloring offer a wider range of applications. Assigning colors to vertices or edges of graphs makes classifications of these objects possible.
+When simple binary relationships between objects are not enough, weighted graphs and colouring offer a wider range of applications. Assigning colours to vertices or edges of graphs makes classifications of these objects possible.
 
 \begin{definition}
-    A vertex coloring of a graph $G$ is a mapping from the vertex set of $G$ to a set of colors $C$. An edge coloring of a graph $G$ is a mapping from the edge set of $G$ to a set of colors $C$.
+    A vertex colouring of a graph $G$ is a mapping from the vertex set of $G$ to a set of colours $C$. An edge colouring of a graph $G$ is a mapping from the edge set of $G$ to a set of colours $C$.
 \end{definition}
 
-\begin{definition}\label{proper-coloring}
-    A \textit{proper vertex coloring} of $G$ is a vertex coloring such that no two neighboring vertices share a color. A \textit{proper edge coloring} is an edge coloring such that no two edges that share an endpoint have the same color. A proper coloring using $k$ colors is called a \textit{k-coloring}.
+\begin{definition}\label{proper-colouring}
+    A \textit{proper vertex colouring} of $G$ is a vertex colouring such that no two neighboring vertices share a colour. A \textit{proper edge colouring} is an edge colouring such that no two edges that share an endpoint have the same colour. A proper colouring using $k$ colours is called a \textit{k-colouring}.
 \end{definition}
 
-As coloring in general is not very interesting, we will be considering only proper colorings henceforth. It is also important to define the set of "colors", especially when coloring signed graphs. Although actual colors tend to be a nice visualization of a coloring, it is more practical to use a subset of integers $C \subseteq \mathbb{Z}$.
+As colouring in general is not very interesting, we will be considering only proper colourings henceforth. It is also important to define the set of "colours", especially when colouring signed graphs. Although actual colours tend to be a nice visualization of a colouring, it is more practical to use a subset of integers $C \subseteq \mathbb{Z}$.
 
-The canonical coloring problem is to find the minimum number of colors required for a proper coloring. This number is called the \textit{chromatic number} for vertex colorings and \textit{chromatic index} for edge colorings. Determining the chromatic number and index is useful in other areas of graph theory as well.
+The canonical colouring problem is to find the minimum number of colours required for a proper colouring. This number is called the \textit{chromatic number} for vertex colourings and \textit{chromatic index} for edge colourings. Determining the chromatic number and index is useful in other areas of graph theory as well.
 
 \begin{theorem}\label{th:bipartite}
-    A graph is bipartite if and only if it has a proper vertex 2-coloring.
+    A graph is bipartite if and only if it has a proper vertex 2-colouring.
 \end{theorem}
 
 For regular unsigned graphs these numbers are known.
@@ -66,10 +66,10 @@ For regular unsigned graphs these numbers are known.
 \end{theorem}
 
 \begin{theorem}[Vizing]
-    The chromatic index of a simple graph $G$ is $\Delta(G)$ or $\Delta(G) + 1$.\todo{cite}
+    The chromatic index of a simple graph $G$ is $\Delta(G)$ or $\Delta(G) + 1$.
 \end{theorem}
 
-In other words, we can always color the edges of a graph using at most $\Delta(G) + 1$ colors where $\Delta(G)$ is the highest degree of any vertex in $G$. The lower bound $\Delta(G)$ is trivial; we need exactly $\Delta(G)$ colors at the highest degree vertex in $G$ to construct a proper coloring. The Vizing theorem\todo{CITE VIZING THEOREM} proves the upper bound using Kempe chains.
+In other words, we can always colour the edges of a graph using at most $\Delta(G) + 1$ colours where $\Delta(G)$ is the highest degree of any vertex in $G$. The lower bound $\Delta(G)$ is trivial; we need exactly $\Delta(G)$ colours at the highest degree vertex in $G$ to construct a proper colouring. The Vizing theorem proves the upper bound using Kempe chains.
 
 \section{Signed graphs}
 
@@ -122,23 +122,23 @@ We can prove by induction that a signed graph can be switched to an all-positive
 
 It makes sense to study properties of signed graphs that behave consistently under switching. An example of such property is the sign of cycles. Switching a single vertex doesn't change the sign of cycles (cycles containing the vertex reverse signs for two edges resulting in the same product) and switching a set of vertices is equivalent to a sequence of one-vertex-switches (each edge within the set and within the complement gets reversed twice).
 
-\subsection{Coloring}
+\subsection{Colouring}
 
-The research in signed graph coloring was initiated by Zaslavsky\cite{zaslavsky-graphs} in the early 1980s and published in multiple seminal papers\cite{zaslavsky-invariants,zaslavsky-coloring,zaslavsky-colorful}.
+The research in signed graph colouring was initiated by Zaslavsky\cite{zaslavsky-graphs} in the early 1980s and published in multiple seminal papers\cite{zaslavsky-invariants,zaslavsky-colouring,zaslavsky-colourful}.
 
 \begin{definition}
-    A \textit{signed vertex coloring} $\phi(\Gamma)$ of a graph $\Gamma$ is a mapping from the vertex set of $\Gamma$ to a set of signed colors $C$. A \textit{signed edge coloring} $\gamma(\Gamma)$ of a graph $\Gamma$ is a mapping from the set of half-edges (vertex-edge incidences) of $\Gamma$ to a set of colors $C$. Additionally, the half-edges must have the same color on positive edges and opposite colors on negative edges.
+    A \textit{signed vertex colouring} $\phi(\Gamma)$ of a graph $\Gamma$ is a mapping from the vertex set of $\Gamma$ to a set of signed colours $C$. A \textit{signed edge colouring} $\gamma(\Gamma)$ of a graph $\Gamma$ is a mapping from the set of half-edges (vertex-edge incidences) of $\Gamma$ to a set of colours $C$. Additionally, the half-edges must have the same colour on positive edges and opposite colours on negative edges.
 
-    $$(\forall e = (u,v) \in E(\Gamma))~~ \gamma(e, u) = \sigma(e)\gamma(e, v)$$
+    $$(\forall e = (u,v) \in E(\Gamma)) ~~ \gamma(e, u) = \sigma(e)\gamma(e, v)$$
 \end{definition}
 
 \begin{definition}
-    A \textit{proper vertex signed coloring} is a coloring $\phi(\Gamma)$ such that for each pair of neighboring vertices $(u,v)$ $\phi(u) \neq \sigma(uv)\phi(v)$. In case of \textit{proper edge signed coloring} the definition remains the same, because the coloring condition is already a part of the general coloring definition. Each color must be present at each vertex at most once (or adjacent half-edges have different colors). We are, again, assuming only proper colorings from now on.
+    A \textit{proper vertex signed colouring} is a colouring $\phi(\Gamma)$ such that for each pair of neighboring vertices $(u,v)$ $\phi(u) \neq \sigma(uv)\phi(v)$. In case of \textit{proper edge signed colouring} the definition remains the same, because the colouring condition is already a part of the general colouring definition. Each colour must be present at each vertex at most once (or adjacent half-edges have different colours). We are, again, assuming only proper colourings from now on.
 \end{definition}
 
-Here it is even more important to define the color set. Zaslavsky\cite{zaslavsky-coloring} defined a $k$-coloring based on a signed color set $C_k = \{-k, -(k-1), \dots, -1, 0, 1, \dots, (k-1), k\}$ and called colorings zero-free if the color $0$ was not used. He then studied the properties of \textit{chromatic polynomials} related to signed colorings, the number of colorings for a signed graph. (Balanced chromatic polynomials in case of zero-free colorings.)
+Here it is even more important to define the colour set. Zaslavsky\cite{zaslavsky-colouring} defined a $k$-colouring based on a signed colour set $C_k = \{-k, -(k-1), \dots, -1, 0, 1, \dots, (k-1), k\}$ and called colourings zero-free if the colour $0$ was not used. He then studied the properties of \textit{chromatic polynomials} related to signed colourings, the number of colourings for a signed graph. (Balanced chromatic polynomials in case of zero-free colourings.)
 
-This definition is consistent under switching. Assuming a graph $\Gamma$ and a proper vertex coloring $\phi$, if we obtain $\Gamma'$ by switching vertex $u$, then $\phi' = \phi; \phi'(u) = -\phi(u)$ is a proper vertex coloring of $\Gamma'$. Similarly for edge coloring in which we reverse the sign of each half-edge incident to $u$.
+This definition is consistent under switching. Assuming a graph $\Gamma$ and a proper vertex colouring $\phi$, if we obtain $\Gamma'$ by switching vertex $u$, then $\phi' = \phi; \phi'(u) = -\phi(u)$ is a proper vertex colouring of $\Gamma'$. Similarly for edge colouring in which we reverse the sign of each half-edge incident to $u$.
 
 \begin{figure}[h]
     \centering
@@ -179,18 +179,18 @@ This definition is consistent under switching. Assuming a graph $\Gamma$ and a p
                 (3) edge [] (4);
         \end{scope}
     \end{tikzpicture}
-    \caption[Example of a signed edge coloring]{Example of a proper signed edge coloring on the left. We obtain the graph on the right by switching the bottom left vertex and the coloring remains correct and proper.}
+    \caption[Example of a signed edge colouring]{Example of a proper signed edge colouring on the left. We obtain the graph on the right by switching the bottom left vertex and the colouring remains correct and proper.}
 \end{figure}
 
-However, this definition is not a natural extension of the original color set of integers, because a $k$-coloring essentially uses $2k$ or $2k+1$ signed colors. It is a desirable property for the color set because signed graphs themselves are an extension of unsigned graphs. A balanced signed graph is essentially equivalent to the unsigned underlying graph, so its chromatic number and index for instance should also match. In \textit{The chromatic number of a signed graph}, Máčajová et al. define the color set a little bit differently: An $n$-coloring uses the color set $C_n = \{\pm 1,\pm 2,\dots,\pm k\}$ if $n = 2k$ and $C_n = \{0, \pm 1,\pm 2,\dots,\pm k\}$ if $n = 2k + 1$. We adopt this color set in this thesis.
+However, this definition is not a natural extension of the original colour set of integers, because a $k$-colouring essentially uses $2k$ or $2k+1$ signed colours. It is a desirable property for the colour set because signed graphs themselves are an extension of unsigned graphs. A balanced signed graph is essentially equivalent to the unsigned underlying graph, so its chromatic number and index for instance should also match. In \textit{The chromatic number of a signed graph}, Máčajová et al. define the colour set a little bit differently: An $n$-colouring uses the colour set $C_n = \{\pm 1,\pm 2,\dots,\pm k\}$ if $n = 2k$ and $C_n = \{0, \pm 1,\pm 2,\dots,\pm k\}$ if $n = 2k + 1$. We adopt this colour set in this thesis.
 
-We adopt the signed versions of coloring definitions from \textit{The chromatic number of a signed graph}\cite{chromatic-number} and \textit{Edge coloring signed graphs}\cite{behr-edge-coloring}. In the latter, however, Behr colors the half-edges the same color if their sign is negative, not positive. Since there was no obvious advantage stated in the article and the definitions are somewhat equivalent\todo{dokaz? bijekcia?}, we find this version to be more natural, as the underlying graph can be interpreted as an "absolute value" of the signed graph, which is positive.
+We adopt the signed versions of colouring definitions from \textit{The chromatic number of a signed graph}\cite{chromatic-number} and \textit{Edge colouring signed graphs}\cite{behr-edge-colouring}. In the latter, however, Behr colours the half-edges the same colour if their sign is negative, not positive. Since there was no obvious advantage stated in the article and the definitions are somewhat equivalent, we find this version to be more natural, as the underlying graph can be interpreted as an "absolute value" of the signed graph, which is positive.
 
 \section{Motivation}
 
 \say{In the study of various important and difficult problems in graph theory (such as the cycle double cover conjecture and the 5-flow conjecture), one encounters an interesting but somewhat mysterious variety of graphs called snarks. In spite of their simple definition [\dots] and over a century long investigation, their properties and structure are largely unknown.} --- Chladný, Škoviera \cite{skoviera-citat}
 
-By Vizing's theorem, cubic graphs are colorable either with three ("class one" graphs) or four colors ("class two") graphs. The exact definition of a snark may vary from paper to paper but a snark is essentially a cubic graph with chromatic index four (its edges can't be colored with three colors). The definition varies across papers, trivial cases are generally excluded. Every cubic graph with a loop or a bridge is a "snark", triangles (cycles of length three) can be contracted into a single vertex and cycles of length four can also be simplified. Therefore many definitions forbid these properties by considering true snarks only graphs with girth (length of the shortest cycle) at least five. Even more strongly, only cyclically 4-edge-connected graphs are considered (there is no subset of three or fewer edges such that their removal will disconnect the graph into two subgraphs each containing a cycle). One of the alternative formulations of the four color theorem is that each snark is non-planar. Snarks are important in a multitude of graph theory areas and thus it makes sense to investigate the reach of signed snarks too.
+By Vizing's theorem, cubic graphs are colourable either with three ("class one" graphs) or four colours ("class two") graphs. The exact definition of a snark may vary from paper to paper but a snark is essentially a cubic graph with chromatic index four (its edges can't be coloured with three colours). The definition varies across papers, trivial cases are generally excluded. Every cubic graph with a loop or a bridge is a "snark", triangles (cycles of length three) can be contracted into a single vertex and cycles of length four can also be simplified. Therefore many definitions forbid these properties by considering true snarks only graphs with girth (length of the shortest cycle) at least five. Even more strongly, only cyclically 4-edge-connected graphs are considered (there is no subset of three or fewer edges such that their removal will disconnect the graph into two subgraphs each containing a cycle). One of the alternative formulations of the four colour theorem is that each snark is non-planar. Snarks are important in a multitude of graph theory areas and thus it makes sense to investigate the reach of signed snarks too.
 
 \section{Previous research}
 
@@ -200,10 +200,8 @@ In \textit{The chromatic number of a signed graph}\cite{chromatic-number} Máča
     Let $\Gamma$ be a simple connected signed graph. If $\Gamma$ is not a balanced complete graph, a balanced odd circuit or an unbalanced even circuit, then $\chi(\Gamma) \leq \Delta(\Gamma)$.
 \end{theorem}
 
-\textit{Edge coloring signed graphs} defines a version of the signed edge coloring and proves a signed version of the equally fundamental Vizing's theorem.
+\textit{Edge colouring signed graphs} defines a version of the signed edge colouring and proves a signed version of the equally fundamental Vizing's theorem.
 
 \begin{theorem}[Signed Vizing's Theorem]\label{th:vizing}
     Let $\Gamma$ be a simple signed graph. The chromatic index of $\Gamma$ is $\Delta(\Gamma)$ or $\Delta(\Gamma) + 1$.
 \end{theorem}
-
-\todo{}
