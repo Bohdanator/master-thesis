@@ -61,8 +61,8 @@ The canonical coloring problem is to find the minimum number of colors required 
 
 For regular unsigned graphs these numbers are known.
 
-\begin{theorem}[Brooks]
-    The chromatic number of a graph $G$ is $\Delta(G)$ for all graphs except complete graphs and cycles of odd length, where the chromatic number is $\Delta(G) + 1$.\cite{brooks}
+\begin{theorem}[Brooks\cite{brooks}]
+    The chromatic number of a graph $G$ is $\Delta(G)$ for all graphs except complete graphs and cycles of odd length, where the chromatic number is $\Delta(G) + 1$.
 \end{theorem}
 
 \begin{theorem}[Vizing]
@@ -109,7 +109,7 @@ A fundamental concept in the signed graphs theory is \textit{balance}. The sign 
         \item the vertices can be divided into two subsets (possibly empty) such that each edge with both ends in the same subset is positive and each edge with ends in different subsets is negative
     \end{enumerate}
 
-    This is the generalization of the earlier mentioned bipartite graph theorem.\todo{reference?}
+    This is a generalization of the earlier mentioned bipartite graph theorem (\Cref{th:bipartite}).
 \end{theorem}
 
 The proof uses the method of \textit{switching}. Switching a vertex of a signed graph reverses the sign of each edge incident to it. More generally, switching a signed graph reverses the sign of each edge between a vertex subset and its complement.
@@ -142,43 +142,43 @@ This definition is consistent under switching. Assuming a graph $\Gamma$ and a p
 
 \begin{figure}[h]
     \centering
-        \begin{tikzpicture}
-            \begin{scope}[every node/.style={circle,draw,fill=black}]
-                \node (1) [label=above right:1, label=below left:0] at (0,0) {};
-                \node (2) [label=above left:1, label=below right:0] at (3,0) {};
-                \node (3) [label=above left:0, label=below right:-1] at (0,-3) {};
-                \node (4) [label=above right:0, label=below left:1] at (3,-3) {};
-            \end{scope}
-            \node (ar) at (2.2,-0.3) {-1};
-            \node (bl) at (0.3, -2.2) {1};
-            \begin{scope}[every edge/.style={draw,very thick}]
-                \path
-                    (1) edge (2)
-                    (2) edge [dashed] (3)
-                    (3) edge (1)
-                    (2) edge (4)
-                    (3) edge [dashed] (4);
-            \end{scope}
-        \end{tikzpicture}
-        \hspace{0.1\textwidth}
-        \begin{tikzpicture}
-            \begin{scope}[every node/.style={circle,draw,fill=black}]
-                \node (1) [label=above right:1, label=below left:0] at (0,0) {};
-                \node (2) [label=above left:1, label=below right:0] at (3,0) {};
-                \node (3) [label=above left:0, label=below right:1] at (0,-3) {};
-                \node (4) [label=above right:0, label=below left:1] at (3,-3) {};
-            \end{scope}
-            \node (ar) at (2.2,-0.3) {-1};
-            \node (bl) at (0.3, -2.2) {-1};
-            \begin{scope}[every edge/.style={draw,very thick}]
-                \path
-                    (1) edge (2)
-                    (2) edge [] (3)
-                    (3) edge [dashed] (1)
-                    (2) edge (4)
-                    (3) edge [] (4);
-            \end{scope}
-        \end{tikzpicture}
+    \begin{tikzpicture}
+        \begin{scope}[every node/.style={circle,draw,fill=black}]
+            \node (1) [label=above right:1, label=below left:0] at (0,0) {};
+            \node (2) [label=above left:1, label=below right:0] at (3,0) {};
+            \node (3) [label=above left:0, label=below right:-1] at (0,-3) {};
+            \node (4) [label=above right:0, label=below left:1] at (3,-3) {};
+        \end{scope}
+        \node (ar) at (2.2,-0.3) {-1};
+        \node (bl) at (0.3, -2.2) {1};
+        \begin{scope}[every edge/.style={draw,very thick}]
+            \path
+                (1) edge (2)
+                (2) edge [dashed] (3)
+                (3) edge (1)
+                (2) edge (4)
+                (3) edge [dashed] (4);
+        \end{scope}
+    \end{tikzpicture}
+    \hspace{0.1\textwidth}
+    \begin{tikzpicture}
+        \begin{scope}[every node/.style={circle,draw,fill=black}]
+            \node (1) [label=above right:1, label=below left:0] at (0,0) {};
+            \node (2) [label=above left:1, label=below right:0] at (3,0) {};
+            \node (3) [label=above left:0, label=below right:1] at (0,-3) {};
+            \node (4) [label=above right:0, label=below left:1] at (3,-3) {};
+        \end{scope}
+        \node (ar) at (2.2,-0.3) {-1};
+        \node (bl) at (0.3, -2.2) {-1};
+        \begin{scope}[every edge/.style={draw,very thick}]
+            \path
+                (1) edge (2)
+                (2) edge [] (3)
+                (3) edge [dashed] (1)
+                (2) edge (4)
+                (3) edge [] (4);
+        \end{scope}
+    \end{tikzpicture}
     \caption[Example of a signed edge coloring]{Example of a proper signed edge coloring on the left. We obtain the graph on the right by switching the bottom left vertex and the coloring remains correct and proper.}
 \end{figure}
 

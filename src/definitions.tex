@@ -25,37 +25,70 @@
 \usepackage{algorithm}
 \lstset{frame=lines}
 
+% \theoremstyle{plain}
+% \newtheorem{theorem}{Theorem}
+% \newtheorem{lemma}{Lemma}
+% \newtheorem{corollary}{Corollary}
+% \newtheorem{proposition}{Proposition}
+% \newtheorem{conjecture}{Conjecture}
+% \newtheorem{criterion}{Criterion}
+% \newtheorem{assertion}{Assertion}
+
+% \theoremstyle{definition}
+% \newtheorem{definition}{Definition}
+% \newtheorem{condition}{Condition}
+% \newtheorem{problem}{Problem}
+% \newtheorem{example}{Example}
+% \newtheorem{exercise}{Exercise}
+% \newtheorem{question}{Question}
+% \newtheorem{axiom}{Axiom}
+% \newtheorem{property}{Property}
+% \newtheorem{assumption}{Assumption}
+% \newtheorem{hypothesis}{Hypothesis}
+% \newtheorem{optimization}{Optimization} \crefname{optimization}{opt.}{opts.}
+
+% \theoremstyle{remark}
+% \newtheorem{remark}{Remark}
+% \newtheorem{note}{Note}
+% \newtheorem{notation}{Notation}
+% \newtheorem{claim}{Claim}
+% \newtheorem{summary}{Summary}
+% \newtheorem{acknowledgment}{Acknowledgment}
+% \newtheorem{case}{Case}
+% \newtheorem{conclusion}{Conclusion}
+
+% number by chapter
 \theoremstyle{plain}
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
-\newtheorem{corollary}{Corollary}
-\newtheorem{proposition}{Proposition}
-\newtheorem{conjecture}{Conjecture}
-\newtheorem{criterion}{Criterion}
-\newtheorem{assertion}{Assertion}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{conjecture}{Conjecture}[chapter]
+\newtheorem{criterion}{Criterion}[chapter]
+\newtheorem{assertion}{Assertion}[chapter]
 
 \theoremstyle{definition}
-\newtheorem{definition}{Definition}
-\newtheorem{condition}{Condition}
-\newtheorem{problem}{Problem}
-\newtheorem{example}{Example}
-\newtheorem{exercise}{Exercise}
-\newtheorem{question}{Question}
-\newtheorem{axiom}{Axiom}
-\newtheorem{property}{Property}
-\newtheorem{assumption}{Assumption}
-\newtheorem{hypothesis}{Hypothesis}
-\newtheorem{optimization}{Optimization} \crefname{optimization}{opt.}{opts.}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{condition}{Condition}[chapter]
+\newtheorem{problem}{Problem}[chapter]
+\newtheorem{example}{Example}[chapter]
+\newtheorem{exercise}{Exercise}[chapter]
+\newtheorem{question}{Question}[chapter]
+\newtheorem{axiom}{Axiom}[chapter]
+\newtheorem{property}{Property}[chapter]
+\newtheorem{assumption}{Assumption}[chapter]
+\newtheorem{hypothesis}{Hypothesis}[chapter]
+\newtheorem{optimization}{Optimization}[chapter] \crefname{optimization}{opt.}{opts.}
 
 \theoremstyle{remark}
-\newtheorem{remark}{Remark}
-\newtheorem{note}{Note}
-\newtheorem{notation}{Notation}
-\newtheorem{claim}{Claim}
-\newtheorem{summary}{Summary}
-\newtheorem{acknowledgment}{Acknowledgment}
-\newtheorem{case}{Case}
-\newtheorem{conclusion}{Conclusion}
+\newtheorem{remark}{Remark}[chapter]
+\newtheorem{note}{Note}[chapter]
+\newtheorem{notation}{Notation}[chapter]
+\newtheorem{claim}{Claim}[chapter]
+\newtheorem{summary}{Summary}[chapter]
+\newtheorem{acknowledgment}{Acknowledgment}[chapter]
+\newtheorem{case}{Case}[chapter]
+\newtheorem{conclusion}{Conclusion}[chapter]
 
 \newcommand{\todo}[1]{\textcolor{red}{TODO {#1}}}
 

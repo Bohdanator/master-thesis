@@ -52,4 +52,22 @@ The algorithm first finds a spanning tree and assigns positive signs to all edge
 
 Signed graphs can be isomorphic if and only if their base graphs are isomorphic. We get the homomorphism by taking away signatures. This is a key observation because if we base our signed graphs on non-isomorphic graphs the only candidates for isomorphisms are based on the same graph. In Enumerating Switching Isomorphism Classes of Signed Graphs\cite{enumerating-switching-isomorphisms} non-equivalent graphs are enumerated using a one-to-one correspondence between switching isomorphism classes and signed double covers of $\Gamma$. The algorithm first generates all possible signed graphs from a base graph and then filters them for isomorphisms. This approach, although correct, is too inefficient for our purposes. The algorithm generates all signed graphs for each base graph, which for $n = 18$ is already too much, 41301 cubic graphs with 18 vertices results in $~10.8$ billion signed graphs.
 
-A second approach is based on the cycle space of $\Gamma$ and Eulerian graphs. \todo{}
+A second approach is based on the cycle space of $\Gamma$ and Eulerian graphs.
+
+\begin{theorem}[Zaslavsky, Cameron\cite{enumerating-switching-isomorphisms}]
+    There is a one-to-one correspondence between switching isomorphism classes of $\Gamma$ and Aut($G$)-isomorphism classes of Eulerian subgraphs of $G$.
+\end{theorem}
+
+This approach results in a faster enumeration algorithm, but it does not provide means to generate non-isomorphic signed graphs. This is a point of possible future research as there might be a way to utilize this theory in a faster generation algorithm.
+
+In this thesis we are using a simple approach for filtering signed graphs for isomorphisms. The signed graphs are converted to unsigned graphs differentiating negative edges by inserting a vertex in the middle. Now we can use known filtering algorithms, finding the canonical form for each new graph and comparing it against already seen graphs.
+
+\begin{definition}
+    A \textit{canonical form} is a labeled graph Canon($G$) that is isomorphic to $G$ such that every graph isomorphic to $G$ has the same canonical form. To compute whether graphs $G$ and $H$ are isomorphic we compute their canonical forms and test whether they are identical.
+\end{definition}
+
+Finding the canonical form is as hard as determining whether two graphs are isomorphic and as of today it is unknown if a polynomial deterministic algorithm exists that solves this problem. However, here we are working with small graphs (less than 26 vertices) and special cases of bigger graphs, so time costs related to the number of vertices are more or less irrelevant. What is relevant is that this approach has quadratic complexity with regards to the number of signed graphs on each base graph as we are comparing each new canonical form to potentially many previous ones. This cost is mitigated somewhat by filtering the graphs for signed snarks first and for isomorphisms second.
+
+\section{Implementation}
+
+We achieved our results using the following implementation. The programming language of choice was C++ over Python due to its speed and a base of tools for graph computation. We implement a simple data structure to represent signed graphs as opposed to nauty\todo{cite} and other optimized structures because there is little support for signed graphs "out of the box". Additionally, there is no need to optimize for the graph size. Cubic graphs and unsigned snarks are generated using snarkhunter\todo{cite}. Our SAT solver of choice is the winner of the SAT Competition 2020\cite{SAT-Competition-2020-solvers}, kissat. It is a \say{condensed and improved reimplementation of CaDiCaL in C}.
