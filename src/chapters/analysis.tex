@@ -158,7 +158,7 @@ Similarly to regular snarks, there are trivial properties of signed graphs that 
 \end{figure}
 
 \begin{theorem}
-    An unsigned graph $G$ has a signature that admits a 3-edge-colouring if and only if it has a 1-factor (1-regular subgraph with the same vertex set).
+    An unsigned graph $G$ has a signature that admits a 3-edge-colouring if and only if it has a 1-factor (perfect matching).
 \end{theorem}
 
 \textit{Proof.} If there is a signature and a 3-edge-colouring on it, the edges coloured $0$ form by the definition of a proper edge colouring a perfect matching. Now let $M \subseteq E(G)$ be a 1-factor. Let's assign the colour $0$ to these edges again and remove them from $G$. After removing a 1-factor from a cubic graph we obtain a 2-factor, a set of disjunct cycles (if two cycles would have a common vertex, its degree in the original graph would have to be at least 4). According to \Cref{th:brooks} for the cycles to be colourable, we assign any balanced signature to even cycles and any unbalanced signature to odd cycles. All cycles from this 2-factor will now be 2-edge-colourable with colours $1$ and $-1$ and combined with the $0$-coloured 1-factor we obtain a 3-edge-colourable signed cubic graph. \qed

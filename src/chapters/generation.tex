@@ -4,7 +4,7 @@ Since the structure of snarks is generally unknown, the most efficient way of sy
 
 \section{Chromatic index problem}
 
-To determine the chromatic index of a cubic graph is an NP-complete problem. By extension, determining the chromatic index of a signed cubic graph is also NP-complete, because of the trivial reduction from signed chromatic index problem to unsigned chromatic index problem. Instead of designing an algorithm we decided to implement a conversion from the chromatic index problem to 3SAT and using a highly optimized SAT solver anticipating better effectiveness.
+To determine the chromatic index of a cubic graph is an NP-complete problem. By extension, determining the chromatic index of a signed cubic graph is also NP-complete, because of the trivial reduction from signed chromatic index problem to unsigned chromatic index problem. Instead of designing an algorithm we decided to implement a conversion from the chromatic index problem to 3SAT and using a highly optimized SAT solver in the hope for better effectiveness.
 
 \subsection{Conversion to 3SAT}
 
@@ -28,45 +28,9 @@ Each pair of half-edges with a common vertex has to have different colours. Note
 
 \textit{Proof.} Follows from the construction of $F$ encapsulating all properties of a proper signed 3-colouring. \qed
 
-\section{Equivalence}
-
-Signed graphs can be equivalent in a combination two ways, switching-equivalent or isomorphic. Let's explore the switching equivalence first.
-
-\subsection{Signed equivalence classes}
-
-On any base graph $G$ there are $2^{|E(G)|}$ possible signed graphs. Zaslavsky\cite{zaslavsky-graphs} enumerated the switching equivalence classes and described a representative for each class.
-
-\begin{theorem}\label{lem1:eq-classes}
-    Let $G$ be a simple unsigned base graph and $T \subseteq E(G)$ a spanning tree of $G$. Then all signed graphs that have an all-positive signature on $T$ are not switching-equivalent and each equivalence class based on $G$ has exactly one representative among them. There are $2^{|E(G)| - |V(G)| +1}$ switching classes on $G$.
-\end{theorem}
-
-\textit{Proof.} Take any signed graph constructed this way. Switching no vertices and all vertices results in the same graph. To obtain a different graph, at least one vertex will not be switched and at least one vertex will be switched. The set of switched vertices $A \neq \emptyset$ and the set of untouched vertices $B \neq \emptyset$ are a partition of $V(G)$. Since $G$ is connected, there is at least one edge between $A$ and $B$ and at least one of them is in $T$. This edge will change its sign based on the definition of switching. So any graph we obtain by switching one of the graphs from \cref{lem1:eq-classes} will not be all-positive on $T$, making all these graphs belong to different equivalence classes. \qed
-
-According to \Cref{lem1:eq-classes}, on a base cubic graph with $n$ vertices there are $2^{\frac{n}{2}+1}$ equivalence classes, one for each signature of edges that are not in the spanning tree. Note that $\frac{n}{2}$ is always an integer since the number of vertices in a cubic graph is even. The following algorithm generates all non-equivalent representatives.
-
 \subsection{Generating algorithm}
 
 The algorithm first finds a spanning tree and assigns positive signs to all edges in it. Edges are enumerated and the spanning tree edges will be ignored. We can now imagine that positive sign means zero and negative sign means one. The remaining edges form a binary number in this way. To obtain the next representative we simply increment this number by one. This means flipping the lowest consecutive sequence of ones and the first instance of zero. We keep reversing the sign of edges from lowest to highest until we flip a positive edge for the first time or run out of edges. If we run out of edges, we basically went from the number $2^{\frac{n}{2}+1} - 1$ to $0$. So starting with any signature that is all-positive on the spanning tree, we will have generated all equivalence classes after $2^{\frac{n}{2}+1}$ incrementations. The spanning tree, however, has to remain the same during the entire process.
-
-\subsection{Isomorphism}
-
-Signed graphs can be isomorphic if and only if their base graphs are isomorphic. We get the homomorphism by taking away signatures. This is a key observation because if we base our signed graphs on non-isomorphic graphs the only candidates for isomorphisms are based on the same graph. In Enumerating Switching Isomorphism Classes of Signed Graphs\cite{enumerating-switching-isomorphisms} non-equivalent graphs are enumerated using a one-to-one correspondence between switching isomorphism classes and signed double covers of $\Gamma$. The algorithm first generates all possible signed graphs from a base graph and then filters them for isomorphisms. This approach, although correct, is too inefficient for our purposes. The algorithm generates all signed graphs for each base graph, which for $n = 18$ is already too much, 41301 cubic graphs with 18 vertices results in $~10.8$ billion signed graphs.
-
-A second approach is based on the cycle space of $\Gamma$ and Eulerian graphs.
-
-\begin{theorem}[Zaslavsky, Cameron\cite{enumerating-switching-isomorphisms}]
-    There is a one-to-one correspondence between switching isomorphism classes of $\Gamma$ and Aut($G$)-isomorphism classes of Eulerian subgraphs of $G$.
-\end{theorem}
-
-This approach results in a faster enumeration algorithm, but it does not provide means to generate non-isomorphic signed graphs. This is a point of possible future research as there might be a way to utilize this theory in a faster generation algorithm.
-
-In this thesis we are using a simple approach for filtering signed graphs for isomorphisms. The signed graphs are converted to unsigned graphs differentiating negative edges by inserting a vertex in the middle. Now we can use known filtering algorithms, finding the canonical form for each new graph and comparing it against already seen graphs.
-
-\begin{definition}
-    A \textit{canonical form} is a labeled graph Canon($G$) that is isomorphic to $G$ such that every graph isomorphic to $G$ has the same canonical form. To compute whether graphs $G$ and $H$ are isomorphic we compute their canonical forms and test whether they are identical.
-\end{definition}
-
-Finding the canonical form is as hard as determining whether two graphs are isomorphic and as of today it is unknown if a polynomial deterministic algorithm exists that solves this problem. However, here we are working with small graphs (less than 26 vertices) and special cases of bigger graphs, so time costs related to the number of vertices are more or less irrelevant. What is relevant is that this approach has quadratic complexity with regards to the number of signed graphs on each base graph as we are comparing each new canonical form to potentially many previous ones. This cost is mitigated somewhat by filtering the graphs for signed snarks first and for isomorphisms second.
 
 \section{Implementation}
 
