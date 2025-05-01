@@ -1,35 +1,31 @@
 \chapter{Non-switching-isomorphic graphs}
 
-If we hope to produce clean and usable data, we need to filter the graphs for switching-isomorphisms. Bagheri, Moghaddamfar, Ramezani\cite{switching-isomorphic} establish a method of determining the number of non-switching-isomorphic signed graphs based on the action of its automorphism group. We will now dive into the concepts of switching equivalence and automorphism on signed graphs and describe the algorithm used to generate non-switching-isomorphic graphs.
+Considering one underlying graph, the number of signed graphs is simply too big for an efficient analysis. Filtering them for switching-isomorphism reduces them to manageable amounts and ensures clean and usable data. Bagheri, Moghaddamfar, Ramezani\cite{switching-isomorphic} establish a method of determining the non-switching-isomorphic signed graphs based on the action of its automorphism group. Our aim is to automate this process using a different idea and making analysis of small cubic signed graphs possible.
 
 \section{Switching equivalence}
 
-Given a graph $G$ there are $2^{|E_G|}$ possible signed graphs constructed from $G$. However, provided that $G$ is connected, only $2^{|E_G| - |V_G| + 1}$ or them are mutually non-switching equivalent.
+Given an underlying graph $G$ there are $2^{|E_G|}$ possible signed graphs constructed from $G$. However, provided that $G$ is connected, only $2^{|E_G| - |V_G| + 1}$ or them are mutually non-switching equivalent.
 
 \begin{theorem}\label{lem1:eq-classes}
     Let $G$ be a simple unsigned connected graph with $n$ vertices and $m$ edges. There are $2^{m - n + 1}$ mutually non-switching equivalent graphs on $G$.
 \end{theorem}
 
-\textit{Proof.} Bagheri, Moghaddamfar, Ramezani\cite{switching-isomorphic} also prove this theorem but we present a simpler version. The idea is to use a spanning tree $S \subseteq G$ and show that each switching equivalence class of $G$ has exactly one element that is all-positive on $S$. Since $S$ contains $n - 1$ edges, there are $2^{m - (n - 1)}$ different graphs all-positive on $S$. Suppose we have a signed graph $\Gamma$ all-positive on $S$ and we switch some vertices. If we switch no vertices or all vertices, the graph stays the same, so we will have a non-empty set of switched vertices $A$ and a non-empty set of unswitched vertices $B$. At least one edge of $S$ must have one end in $A$ and the other end in $B$, otherwise $G$ would not be connected or $S$ would not be a spanning tree. After this switching all edges with both ends in either $A$ or $B$ will retain the same sign (not reversed or reversed twice) and edges with one end in $A$ and on end in $B$ will have its sign reversed. Therefore every possible switching from $\Gamma$ will result in a graph that is not all-positive on $S$. \qed
+\textit{Proof.} Bagheri, Moghaddamfar, Ramezani\cite{switching-isomorphic} prove this theorem but we present a simpler version. The idea is to use a spanning tree $S \subseteq G$ and show that each switching equivalence class of $G$ has exactly one element that is all-positive on $S$. Since $S$ contains $n - 1$ edges, there are $2^{m - (n - 1)}$ different graphs all-positive on $S$. Suppose we have a signed graph $\Gamma$ all-positive on $S$ and we switch some vertices. If we switch no vertices or all vertices, the graph stays the same, so we will have a non-empty set of switched vertices $A$ and a non-empty set of unswitched vertices $B$. At least one edge of $S$ must have one end in $A$ and the other end in $B$, otherwise $G$ would not be connected or $S$ would not be a spanning tree. After this switching all edges with both ends in either $A$ or $B$ will retain the same sign (not reversed or reversed twice) and edges with one end in $A$ and on end in $B$ will have its sign reversed. Therefore every possible switching from $\Gamma$ will result in a graph that is not all-positive on $S$. \qed
 
+We use this approach to reduce the number of signed graphs that need to be filtered for isomorphisms.
 
+\section{Isomorphism}
 
-\subsection{Automorphism}
+A \textit{canonical form} of a graph $G$ is a graph isomorphic to $G$ such that each other graph isomorphic to $G$ has the same canonical form. Since there are known ways of converting unsigned graphs to canonical forms\cite{nauty}, we aim to define a conversion from signed graphs to unsigned graphs such that two signed graphs are switching-isomorphic if and only if they are isomorphic after the conversion.
 
+The \textit{cycle space} of a graph is the collection of its Eulerian (even-degree) spanning subgraphs. It can be described as a vector space over the two-element Galois field: the elements are Eulerian subgraphs, the additive operation is symmetric difference (given two graphs the result contains edges that are in exactly one of them) and trivial scalar multiplication. Cycles are trivial elements of the cycle space because each Eulerian subgraph is the sum of some cycles in the context of this vector space. Consequently, there must be a \textit{cycle basis}, a set of linearly independent cycles that generates this cycle space.
 
+\section{The Conversion}
 
-A second approach is based on the cycle space of $\Gamma$ and Eulerian graphs.
+Cycles behave well under both isomorphism and vertex switching. Two isomorphic graphs have the same number of cycles of the same length and the balance of cycles is consistent under vertex switching so two isomorphic \textit{signed} graphs will have the same number of balanced and unbalanced cycles of the same length. The idea is to consider all cycles of progressively bigger length until we construct a set that generates the whole cycle space. Given this set of cycles we construct an unsigned graph and show that two signed graphs are switching-isomorphic if and only if they are isomorphic after processed in the following way.
 
-\begin{theorem}[Zaslavsky, Cameron\cite{enumerating-switching-isomorphisms}]
-    There is a one-to-one correspondence between switching isomorphism classes of $\Gamma$ and Aut($G$)-isomorphism classes of Eulerian subgraphs of $G$.
+\begin{theorem}\label{lem2:conversion}
+    Starting with the unsigned underlying graph. for each cycle we add one \textit{cycle vertex} and connect it to each vertex of the original cycle. We represent their balance with \textit{balance vertices}, to each balanced cycle vertex we add a tail of length one and unbalanced cycles will have a tail of length two. Signed graphs with minimal degree three or more are switching-isomorphic if and only if they are isomorphic after processed this way.
 \end{theorem}
 
-This approach results in a faster enumeration algorithm, but it does not provide means to generate non-isomorphic signed graphs. This is a point of possible future research as there might be a way to utilize this theory in a faster generation algorithm.
-
-In this thesis we are using a simple approach for filtering signed graphs for isomorphisms. The signed graphs are converted to unsigned graphs differentiating negative edges by inserting a vertex in the middle. Now we can use known filtering algorithms, finding the canonical form for each new graph and comparing it against already seen graphs.
-
-\begin{definition}
-    A \textit{canonical form} is a labeled graph Canon($G$) that is isomorphic to $G$ such that every graph isomorphic to $G$ has the same canonical form. To compute whether graphs $G$ and $H$ are isomorphic we compute their canonical forms and test whether they are identical.
-\end{definition}
-
-Finding the canonical form is as hard as determining whether two graphs are isomorphic and as of today it is unknown if a polynomial deterministic algorithm exists that solves this problem. However, here we are working with small graphs (less than 26 vertices) and special cases of bigger graphs, so time costs related to the number of vertices are more or less irrelevant. What is relevant is that this approach has quadratic complexity with regards to the number of signed graphs on each base graph as we are comparing each new canonical form to potentially many previous ones. This cost is mitigated somewhat by filtering the graphs for signed snarks first and for isomorphisms second.
+\textit{Proof.} The balance "tails" are either a vertex of degree one or an additional vertex of degree two. Since degrees of vertices are preserved under isomorphism and both original vertices vertices and cycle vertices have minimal degree three, balanced tails will be projected only onto balanced tails and unbalanced tails onto unbalanced tails. By extension cycle vertices will be projected only onto cycle vertices, because each tail is connected to exactly one cycle vertex. Therefore the original vertices will also be projected only onto each other and the potential isomorphism reduced to the original vertices will be valid.
