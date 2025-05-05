@@ -31,6 +31,12 @@ As an example, the smallest cubic graph is a complete graph with 4 vertices $K_4
 
 In general statements about graphs in later chapters we are referring to undirected cubic graphs.
 
+We also need to define the set of \textit{half-edges} or vertex-edge incidences of a graph (or signed graph)
+
+$$\Sigma _{G} = \bigcup _{e = vw \in E _{G}} \{(e, v), (e, w) \}$$
+
+because in case of signed edge colouring we will be colouring half-edges instead.
+
 \subsection{Colouring}
 
 When simple binary relationships between objects are not enough, weighted graphs and colouring offer a wider range of applications. Assigning colours to vertices or edges of graphs makes classifications of these objects more robust.
@@ -39,23 +45,23 @@ A \textit{proper vertex colouring} of $G$ is a vertex colouring such that no two
 
 As colouring in general is not very interesting, we will be considering only proper colourings henceforth. It is also important to define the set of "colours", especially when colouring signed graphs. It is most practical to use a subset of integers $C \subseteq \mathbb{Z}$ because it makes definitions and proofs clear. Additionally, it is important that a $k$-colouring uses a set of $k$ colours.
 
-The canonical colouring problem is to find the minimum number of colours required for a proper colouring. This number is called the \textit{chromatic number} for vertex colourings and \textit{chromatic index} for edge colourings. Determining the chromatic number and index is useful in other areas of graph theory as well.
+The typical colouring problem is to find the minimum number of colours required for a proper colouring. This number is called the \textit{chromatic number} for vertex colourings and \textit{chromatic index} for edge colourings. Determining the chromatic number and index is useful in other areas of graph theory as well.
 
 \begin{theorem}\label{th:bipartite}
     A graph is bipartite if and only if it has a proper vertex 2-colouring.
 \end{theorem}
 
-For regular unsigned graphs these numbers are known.
+For unsigned graphs these numbers are known.
 
 \begin{theorem}[Brooks\cite{brooks}]
-    The chromatic number of a graph $G$ is $\Delta(G)$ for all graphs except complete graphs and cycles of odd length, where the chromatic number is $\Delta(G) + 1$.
+    The chromatic number of a connected graph $G$ is $\Delta(G)$ for all graphs except complete graphs and cycles of odd length, where the chromatic number is $\Delta(G) + 1$.
 \end{theorem}
 
 \begin{theorem}[Vizing]
     The chromatic index of a simple graph $G$ is $\Delta(G)$ or $\Delta(G) + 1$.
 \end{theorem}
 
-In other words, we can always colour the edges of a graph using at most $\Delta(G) + 1$ colours where $\Delta(G)$ is the highest degree of any vertex in $G$. The lower bound $\Delta(G)$ is trivial; we need exactly $\Delta(G)$ colours at the highest degree vertex in $G$ to construct a proper colouring. The Vizing theorem proves the upper bound using Kempe chains.
+In other words, we can always colour the edges of a graph using at most $\Delta(G) + 1$ colours. The lower bound $\Delta(G)$ is trivial; we need exactly $\Delta(G)$ colours at the highest degree vertex in $G$ to construct a proper colouring. The Vizing theorem proves the upper bound using Kempe chains.
 
 \section{Signed graphs}
 
@@ -64,7 +70,7 @@ A \textit{signed graph} $\Gamma = (G, \sigma)$ consists of an \textit{underlying
 \begin{figure}[h]
     \centering
         \begin{tikzpicture}
-            \begin{scope}[every node/.style={circle,thick,draw}]
+            \begin{scope}[every node/.style={circle,thick,draw,fill=black}]
                 \node (1) at (0,0) {1};
                 \node (2) at (3,0) {2};
                 \node (3) at (0,-3) {3};
@@ -79,10 +85,20 @@ A \textit{signed graph} $\Gamma = (G, \sigma)$ consists of an \textit{underlying
                     (3) edge [dashed] (4);
             \end{scope}
         \end{tikzpicture}
-    \caption[Example of a signed graph]{Example of a signed graph. Dashed lines indicate negative edges, solid lines positive edges.}
+    \caption[Example of a signed graph]{Example of a signed graph. Dashed edges are negative, solid edges are positive.}
 \end{figure}
 
-A fundamental concept in the theory of signed graphs is \textit{vertex switching}. Switching vertex $v$ of a signed graph reverses the sign of each edge incident with $v$. More generally, switching a signed subgraph reverses the sign of each edge between a vertex subset and its complement.
+A fundamental concept in the theory of signed graphs is \textit{vertex switching}. Switching vertex $v$ of a signed graph reverses the sign of each edge incident with $v$. More generally, switching a signed subgraph reverses the sign of each edge between a vertex subset and its complement. Let's define switching by a \textit{switching function}
+
+$$\theta : V_{\Gamma} \rightarrow \{+1, -1\}$$
+
+where vertices mapped to $-1$ are being switched. The new graph will have an altered sign function,
+
+$$\Gamma ^{\theta} = (G, \sigma ^{\theta}); ~~ \sigma ^{\theta} (uv) = \theta (u) \sigma (uv) \theta (v)$$
+
+If a signed graph can be obtained from another signed graph by switching, they are considered \textit{switching equivalent}. Switching equivalence is an equivalence relation and thus forms equivalence classes on $\mathcal{S} (G)$. It makes sense to study properties of signed graphs that behave consistently under switching. An example of such a property is the signs of cycles. Switching doesn't change the sign of cycles because if a switched vertex is a part of a cycle, it will reverse the sign of two edges on that cycle leaving the sign product the same. In fact, the sign (or balance, defined below) of cycles is an alternative definition of a switching equivalence class, each combination of balance among a set of cycles that form a cycle space basis yields the same equivalence classes as the method used in this thesis and defined later. It is also important to point out that switching a set of vertices is equivalent to a sequence of one-vertex switches.
+
+Directly related to vertex switching is the notion of \textit{balance}. A cycle is \textit{balanced} when the product of signs of its edges is positive and \textit{unbalanced} otherwise. A signed graph $\Gamma$ is balanced when each cycle in $\Gamma$ is balanced. It is \textit{antibalanced} if each cycle is unbalanced.
 
 \begin{theorem}[Harary]\label{th:harary}
     A signed graph is balanced if and only if
@@ -94,34 +110,79 @@ A fundamental concept in the theory of signed graphs is \textit{vertex switching
     This is a generalization of the earlier mentioned bipartite graph theorem (\Cref{th:bipartite}).
 \end{theorem}
 
-We can prove by induction that a signed graph can be switched to an all-positive graph if and only if it is balanced. Both conditions in Harary's theorem apply to all all-positive graphs and graphs that can be switched from an all-positive graph. Consequently, all balanced graphs are equivalent to an all-positive graph, which is an alternative definition of a positive graph. Similarly, we call a graph \textit{antibalanced} if it is equivalent to an all-negative graph, (all cycles of even length in and antibalanced graph are positive and cycles of odd length are negative).
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        \begin{scope}[every node/.style={circle,draw,fill=black}]
+            \node (1) [fill=cyan,color=cyan] at (0,0) {};
+            \node (2) at (0,2) {};
+            \node (3) [label=above:A] at (0,4) {};
+            \node (5) at (2,0) {};
+            \node (6) at (2,2) {};
+            \node (7) [label=above:B] at (2,4) {};
+        \end{scope}
+        \begin{scope}[every edge/.style={draw,very thick}]
+            \path
+                (1) edge [color=cyan] (2)
+                (3) edge (2)
+                (5) edge (6)
+                (2) edge [dashed] (5)
+                (2) edge [dashed] (6)
+                (3) edge [dashed] (7)
+                (1) edge [dashed,color=cyan] (7)
+                (1) edge [dashed,color=cyan] (6);
+        \end{scope}
+    \end{tikzpicture}
+    \hspace{0.1\textwidth}
+    \begin{tikzpicture}
+        \begin{scope}[every node/.style={circle,draw,fill=black}]
+            \node (1) [fill=magenta,color=magenta] at (2,2.6) {};
+            \node (2) at (0,1) {};
+            \node (3) [label=above:A] at (0,4) {};
+            \node (5) at (2,0) {};
+            \node (6) at (2,1.3) {};
+            \node (7) [label=above:B] at (2,4) {};
+        \end{scope}
+        \begin{scope}[every edge/.style={draw,very thick}]
+            \path
+                (1) edge [dashed,color=magenta] (2)
+                (1) edge [color=magenta] (6)
+                (5) edge (6)
+                (3) edge (2)
+                (2) edge [dashed] (5)
+                (2) edge [dashed] (6)
+                (3) edge [dashed] (7)
+                (1) edge [color=magenta] (7);
+        \end{scope}
+    \end{tikzpicture}
+    \caption[Switching a balanced graph]{Switching a balanced graph.}
+\end{figure}
 
-If a signed graph can be obtained from another signed graph by switching, they are considered \textit{equivalent}. For a single underlying graph, switching forms \textit{equivalence classes} of signed graphs. Within a single equivalence class all graphs can be switched to each other.
+An all-positive graph $\Gamma$ is trivially balanced, all paths are positive and the division of vertices will be subsets $V_{\Gamma}$ and $\emptyset$. Only graphs switching equivalent to an all-positive graph are balanced. Consider how the conditions in \cref*{th:harary} behave under switching.
 
-It makes sense to study properties of signed graphs that behave consistently under switching. An example of such property is the signs of cycles. Switching doesn't change the sign of cycles because if a switched vertex is part of a cycle, it will reverse the sign of two edges on that cycle leaving the sign product the same. Switching a set of vertices is equivalent to a sequence of one-vertex-switches as each edge within the set and within the complement gets reversed twice.
+Let's say we switch vertex $v \in V_{\Gamma}$. The sign of each path that ends at $v$ from any other vertex will flip, because exactly one edge on that path changed signs. So if all paths between $v$ and any other vertex, say $u$, had the same sign before switching, now they will have the opposite but still the same sign.
+
+Suppose we are able to divide $V_{\Gamma}$ into two subsets $A$ and $B$ as per the second condition in \cref*{th:harary} and without loss of generality let $v \in A$. So all edges $vx; ~ x \in A$ are positive and all edges $vy; ~ y \in B$ are negative. After switching $v$ we will construct a new division of $V_{\Gamma}$, subsets $A' = A \setminus \{v\}$ and $B' = B \cup \{v\}$. $A'$ and $B'$ is obviously a correct division of $V_{\Gamma}$ and the second condition will still hold, since all edges incident with $v$ flipped signs and at the same time changes whether they end in the same sunbset as $v$ or not.
 
 Connected to vertex switching is the notion of \textit{balance}. The sign of a path is the product of the signs of its edges. A path is positive if and only if there is an even number of negative edges on it. A cycle is balanced if it is positive and a signed graph is balanced if each cycle in it is balanced\cite{harary}.
 
-
-It is important to note that switching doesn't change the balance of cycles.
-
 \subsection{Colouring}
 
-The research in signed graph colouring was initiated by Zaslavsky\cite{zaslavsky-graphs} in the early 1980s and published in multiple seminal papers\cite{zaslavsky-invariants,zaslavsky-colouring,zaslavsky-colourful}. Before defining vertex and edge colouring we need to define the set of colours.
+The research of signed graph colouring was initiated by Zaslavsky\cite{zaslavsky-graphs} in the early 1980s and published in multiple seminal papers \cite{zaslavsky-invariants,zaslavsky-colouring,zaslavsky-colourful}. Before defining signed vertex and edge colouring it is necessary to define the set of colours.
 
-In the context of signed graphs and vertex switching we are looking for a set of signed integers with the idea of switching a color reversing its sign, same operation as with the signs of edges. Proper colourings of signed graphs will then be consistent under vertex switching because "reversing the sign" is a bijection on $\mathbb{Z}$. Zaslavsky\cite{zaslavsky-colouring} defined a $k$-colouring based on a signed colour set $Z_k = \{-k, -(k-1), \dots, -1, 0, 1, \dots, (k-1), k\}$ and called colourings zero-free if the colour $0$ was not used. He then studied the properties of \textit{chromatic polynomials} related to signed colourings, the number of colourings for a signed graph. (Balanced chromatic polynomials in case of zero-free colourings.)
+In the context of signed graphs and vertex switching we are looking for a set of signed integers with the idea of switching a color reversing its sign, same operation as with the signs of edges. Proper colourings of signed graphs will then be consistent under vertex switching because "reversing the sign" is a bijection on $\mathbb{Z}$. Zaslavsky \cite{zaslavsky-colouring} defined a $k$-colouring based on a signed colour set $C_k = \{-k, -(k-1), \dots, -1, 0, 1, \dots, (k-1), k\}$ and called colourings zero-free if the colour $0$ was not used. He then studied the properties of \textit{chromatic polynomials} related to signed colourings, the number of colourings for a signed graph. (Balanced chromatic polynomials in case of zero-free colourings.)
 
-However, this definition is not a natural extension of the original colour set of integers, because a $k$-colouring essentially uses $2k$ or $2k+1$ signed colours. It is a desirable property for the colour set because signed graphs themselves are an extension of unsigned graphs. A balanced signed graph is essentially equivalent to the unsigned underlying graph, so its chromatic number and index for instance should also match. In \textit{The chromatic number of a signed graph}, Máčajová et al. define the colour set differently: An $k$-colouring uses the colour set $C_k = \{\pm 1,\pm 2,\dots,\pm k\}$ if $n = 2k$ and $C_k = \{0, \pm 1,\pm 2,\dots,\pm k\}$ if $n = 2k + 1$. We adopt this colour set in this thesis.
+However, this definition is not a natural extension of the original colour set of integers, because a $k$-colouring essentially uses $2k$ or $2k+1$ signed colours. This is a desirable property for the colour set, since signed graphs themselves are an extension of unsigned graphs the signed color set should behave in a similar way. A balanced signed graph is essentially equivalent to the unsigned underlying graph, so its chromatic number and index for instance should also match. Máčajová et al. offer another definition: a $k$-colouring uses the colour set $C_k = \{\pm 1,\pm 2,\dots,\pm k\}$ if $n = 2k$ and $C_k = \{0, \pm 1,\pm 2,\dots,\pm k\}$ if $n = 2k + 1$. Behr \cite{behr-edge-colouring} also adopts this definition.
 
-Now for the definitions of the actual colourings. A vertex colouring $\phi(\Gamma)$ of a signed graph $\Gamma$ is, similar to unsigned graphs, a mapping from the vertex set of $\Gamma$ to a set of signed colours $C_k$. Edge colouring is different. Let's define the set of \textit{half-edges} (vertex-edge incidences) of a graph $\Sigma _{\Gamma} = \bigcup _{e = vw \in E _{\Gamma}} \{(e, v), (e, w) \}$. of a signed graph $\Gamma$ is a mapping from the set of half-edges (vertex-edge incidences) of $\Gamma$ to a set of colours $C$. Additionally, the half-edges must have the same colour on positive edges and opposite colours on negative edges.
+A vertex colouring $\phi : V_{\Gamma} \rightarrow C_k$ of a signed graph $\Gamma$ is, similarly to unsigned graphs, a mapping from the vertex set of $\Gamma$ to a set of signed colours $C_k$.
 
-$$(\forall e = (u,v) \in E(\Gamma)) ~~ \gamma(e, u) = \sigma(e)\gamma(e, v)$$
+Edge colouring, however, needs to be defined differently to incorporate the additional information given by the edge signs. The definition of a $k$-coloring $\gamma : \Sigma _{\Gamma} \rightarrow C_k$ of a signed graph $\Gamma$ inspired by Behr \cite{behr-edge-colouring} is a mapping from the set of half-edges of $\Gamma$ to a set of signed colours $C_k$ such that
 
+$$(\forall e = uv \in E_{\Gamma}) ~~ \gamma(e, u) = \sigma(e)\gamma(e, v)$$
 
-A \textit{proper vertex signed colouring} is a colouring $\phi(\Gamma)$ such that for each pair of neighboring vertices $(u,v)$ $\phi(u) \neq \sigma(uv)\phi(v)$. In case of \textit{proper edge signed colouring} the definition remains the same, because the colouring condition is already a part of the general colouring definition. Each colour must be present at each vertex at most once (or adjacent half-edges have different colours). We are, again, assuming only proper colourings from now on.
+In other words, half-edges that form a positive edge must have the same color and half-edges that form a negative edge must have opposite colors. The only difference to Behr's version is the usage of $\sigma(e)$ instead of $-\sigma(e)$, which is really only a matter of taste. In our version positive edges behave like unsigned instead of negative which seemed more natural. Between these definitions different signatures are colorable, but they are equivalent in the sense that there is a bijection between graphs colorable under our definition and Behr's definition. If signed graph $\Gamma = (G, \sigma)$ is edge colorable under our definition, then $\Gamma' = (G, -\sigma)$ with the sign of each edge reversed is colorable under Behr's.
 
-
-Here it is even more important to define the colour set.
+An edge coloring of a signed graph is \textit{proper} if, just as with unsigned graphs, each color is present at each vertex at most once. In case of a vertex coloring all neighbors of each vertex must have different colors. We will, again, consider only proper colorings from now on.
 
 \begin{figure}[h]
     \centering
@@ -162,8 +223,10 @@ Here it is even more important to define the colour set.
                 (3) edge [] (4);
         \end{scope}
     \end{tikzpicture}
-    \caption[Example of a signed edge colouring]{Example of a proper signed edge colouring on the left. We obtain the graph on the right by switching the bottom left vertex and the colouring remains correct and proper.}
+    \caption[Example of a signed edge coloring]{Example of a proper signed edge coloring on the left. We obtain the graph on the right by switching the bottom left vertex and the coloring remains correct and proper.}
 \end{figure}
+
+Behr \cite{behr-edge-colouring} proved the signed version of the Vizing's theorem.
 
 \section{Motivation}
 
