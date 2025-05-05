@@ -5,17 +5,20 @@ First, let's define some basic concepts of graph theory, starting with the graph
 \section{Graphs}
 
 A graph is an algebraic structure most commonly used to describe relationships between objects. There are many definitions of a graph, the most abstract being simply a set $V$ and a relation $R$ on $V$ denoting which elements of $V$ are connected. Graphs in general are \textit{directed}; if $R$ is symmetric, the graph is \textit{undirected}. For the purposes of this work we will be using a geometric definition and generally undirected graphs.
-An undirected graph is an ordered pair $G = (V, E)$, where $V$ is a set of \textit{vertices} and $E$ is a set of \textit{edges}, i. e. a set of unordered pairs of vertices $\forall e \in E: ~ e = (u,v); u,v \in V$.
+An undirected graph is an ordered pair $G = (V, E)$, where $V$ is a set of \textit{vertices} and $E$ is a set of \textit{edges}, determining the incidence of vertices.
+
+$$(\forall e \in E) ~ e = uv = vu; u,v \in V$$
+
 A \textit{path} in a graph $G$ from $v$ to $w$; $v,w \in V$ is a sequence of vertices $(u_1, u_2, \dots, u_n); ~ \{u_i ~|~ 1 \leq i \leq n\} \subseteq V$ such that $u_1 = v$, $u_n = w$ and $\{(u_i, u_{i+1}) ~|~ 1 \leq i \leq n-1\} \subseteq E$. A graph is \textit{connected} if there exists a path between every pair of vertices $v,w \in V; ~ v \neq w$.
-A \textit{degree} $\Delta (v)$ of a vertex $v$ denotes how many edges are incident to this vertex. $\Delta(G)$ is the highest degree of any vertex in $G$.
+A \textit{degree} $\Delta (v)$ of a vertex $v$ denotes how many edges are incident to this vertex. The highest degree of any vertex in $G$ is denoted as $\Delta(G)$.
 A graph is \textit{k-regular} if the degree of each vertex is exactly $k$. A \textit{cubic graph} is a 3-regular graph.
 
-As an example, a complete graph with 4 vertices $K_4$ is cubic.
+As an example, the smallest cubic graph is a complete graph with 4 vertices $K_4$. (In a complete graph each vertex is incident with each other vertex.).
 
 \begin{figure}[h]
     \centering
         \begin{tikzpicture}
-            \begin{scope}[every node/.style={circle,thick,draw}]
+            \begin{scope}[every node/.style={circle,draw,fill=black}]
                 \node (1) at (0,0) {1};
                 \node (2) at (0,2) {2};
                 \node (3) at (-1.5,-1) {3};
@@ -23,15 +26,16 @@ As an example, a complete graph with 4 vertices $K_4$ is cubic.
             \end{scope}
             \draw (1) -- (2) -- (3) -- (4) -- (1) (2) -- (4) (1) -- (3);
         \end{tikzpicture}
+        \caption[Smallest cubic graph]{Smallest cubic graph.}
 \end{figure}
 
-In general statements about graphs in later chapters we are referring to unordered cubic graphs.
+In general statements about graphs in later chapters we are referring to undirected cubic graphs.
 
 \subsection{Colouring}
 
-When simple binary relationships between objects are not enough, weighted graphs and colouring offer a wider range of applications. Assigning colours to vertices or edges of graphs makes classifications of these objects possible.
-A vertex colouring of a graph $G$ is a mapping from the vertex set of $G$ to a set of colours $C$. An edge colouring of a graph $G$ is a mapping from the edge set of $G$ to a set of colours $C$.
-A \textit{proper vertex colouring} of $G$ is a vertex colouring such that no two neighboring vertices share a colour. A \textit{proper edge colouring} is an edge colouring such that no two edges that share an endpoint have the same colour. A proper colouring using $k$ colours is called a \textit{$k$-colouring}.
+When simple binary relationships between objects are not enough, weighted graphs and colouring offer a wider range of applications. Assigning colours to vertices or edges of graphs makes classifications of these objects more robust.
+A vertex colouring $\phi : V_G \rightarrow C$ of a graph $G$ is a mapping from the vertex set of $G$ to a set of colours $C$. An edge colouring $\chi : E_G \rightarrow C$ of a graph $G$ is a mapping from the edge set of $G$ to a set of colours $C$.
+A \textit{proper vertex colouring} of $G$ is a vertex colouring such that no two incident vertices share a colour. A \textit{proper edge colouring} is an edge colouring such that no two incident edges have the same colour. A proper colouring using $k$ colours is called a \textit{$k$-colouring}.
 
 As colouring in general is not very interesting, we will be considering only proper colourings henceforth. It is also important to define the set of "colours", especially when colouring signed graphs. It is most practical to use a subset of integers $C \subseteq \mathbb{Z}$ because it makes definitions and proofs clear. Additionally, it is important that a $k$-colouring uses a set of $k$ colours.
 
@@ -55,8 +59,7 @@ In other words, we can always colour the edges of a graph using at most $\Delta(
 
 \section{Signed graphs}
 
-A signed graph is a graph in which each edge has either a positive or a negative sign. There are multiple definitions of a signed graph, we will be mostly using a pair of an unsigned graph and a sign function:
-A \textit{signed graph} $\Gamma = (G, \sigma)$ consists of a \textit{underlying graph} $G$ and a \textit{sign function} $\sigma : E(G) \rightarrow \{+,-\}$ that assigns a sign to each edge of $G$.
+A \textit{signed graph} $\Gamma = (G, \sigma)$ consists of an \textit{underlying graph} $G$ and a \textit{sign function} $\sigma : E(G) \rightarrow \{+,-\}$ that assigns a sign ($+$ or $-$) to each edge of $G$. $\Gamma ^+ = (V _{\Gamma}, E _{\Gamma ^+})$ and $\Gamma ^- = (V _{\Gamma}, E _{\Gamma ^-})$ denote subgraphs of $\Gamma$ with positive and negative edges respectively, $E _{\Gamma ^+} = \sigma ^{-1} (+1)$ and $E _{\Gamma ^-} = \sigma ^{-1} (-1)$. $\mathcal{S} (G)$ denotes the set of all signed graphs with the underlying graph $G$.
 
 \begin{figure}[h]
     \centering
@@ -79,15 +82,7 @@ A \textit{signed graph} $\Gamma = (G, \sigma)$ consists of a \textit{underlying 
     \caption[Example of a signed graph]{Example of a signed graph. Dashed lines indicate negative edges, solid lines positive edges.}
 \end{figure}
 
-A fundamental concept in the theory of signed graphs is \textit{vertex switching}. Switching a vertex of a signed graph reverses the sign of each edge incident to it. More generally, switching a signed subgraph reverses the sign of each edge between a vertex subset and its complement.
-
-We can prove by induction that a signed graph can be switched to an all-positive graph if and only if it is balanced. Both conditions in Harary's theorem apply to all all-positive graphs and graphs that can be switched from an all-positive graph. Consequently, all balanced graphs are equivalent to an all-positive graph, which is an alternative definition of a positive graph. Similarly, we call a graph \textit{antibalanced} if it is equivalent to an all-negative graph, (all cycles of even length in and antibalanced graph are positive and cycles of odd length are negative).
-
-If a signed graph can be obtained from another signed graph by switching, they are considered \textit{equivalent}. For a single underlying graph, switching forms \textit{equivalence classes} of signed graphs. Within a single equivalence class all graphs can be switched to each other.
-
-It makes sense to study properties of signed graphs that behave consistently under switching. An example of such property is the signs of cycles. Switching doesn't change the sign of cycles because if a switched vertex is part of a cycle, it will reverse the sign of two edges on that cycle leaving the sign product the same. Switching a set of vertices is equivalent to a sequence of one-vertex-switches as each edge within the set and within the complement gets reversed twice.
-
-Connected to vertex switching is the notion of \textit{balance}. The sign of a path is the product of the signs of its edges. A path is positive if and only if there is an even number of negative edges on it. A cycle is balanced if it is positive and a signed graph is balanced if each cycle in it is balanced\cite{harary}.
+A fundamental concept in the theory of signed graphs is \textit{vertex switching}. Switching vertex $v$ of a signed graph reverses the sign of each edge incident with $v$. More generally, switching a signed subgraph reverses the sign of each edge between a vertex subset and its complement.
 
 \begin{theorem}[Harary]\label{th:harary}
     A signed graph is balanced if and only if
@@ -98,6 +93,15 @@ Connected to vertex switching is the notion of \textit{balance}. The sign of a p
 
     This is a generalization of the earlier mentioned bipartite graph theorem (\Cref{th:bipartite}).
 \end{theorem}
+
+We can prove by induction that a signed graph can be switched to an all-positive graph if and only if it is balanced. Both conditions in Harary's theorem apply to all all-positive graphs and graphs that can be switched from an all-positive graph. Consequently, all balanced graphs are equivalent to an all-positive graph, which is an alternative definition of a positive graph. Similarly, we call a graph \textit{antibalanced} if it is equivalent to an all-negative graph, (all cycles of even length in and antibalanced graph are positive and cycles of odd length are negative).
+
+If a signed graph can be obtained from another signed graph by switching, they are considered \textit{equivalent}. For a single underlying graph, switching forms \textit{equivalence classes} of signed graphs. Within a single equivalence class all graphs can be switched to each other.
+
+It makes sense to study properties of signed graphs that behave consistently under switching. An example of such property is the signs of cycles. Switching doesn't change the sign of cycles because if a switched vertex is part of a cycle, it will reverse the sign of two edges on that cycle leaving the sign product the same. Switching a set of vertices is equivalent to a sequence of one-vertex-switches as each edge within the set and within the complement gets reversed twice.
+
+Connected to vertex switching is the notion of \textit{balance}. The sign of a path is the product of the signs of its edges. A path is positive if and only if there is an even number of negative edges on it. A cycle is balanced if it is positive and a signed graph is balanced if each cycle in it is balanced\cite{harary}.
+
 
 It is important to note that switching doesn't change the balance of cycles.
 

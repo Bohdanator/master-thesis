@@ -4,7 +4,7 @@ Considering one underlying graph, the number of signed graphs is simply too big 
 
 \section{Switching equivalence}
 
-Given an underlying graph $G$ there are $2^{|E_G|}$ possible signed graphs constructed from $G$. However, provided that $G$ is connected, only $2^{|E_G| - |V_G| + 1}$ or them are mutually non-switching equivalent.
+Two signed graphs are \textit{switching-equivalent} if one can be obtained from the other with a series Given an underlying graph $G$ there are $2^{|E_G|}$ possible signed graphs constructed from $G$. However, provided that $G$ is connected, only $2^{|E_G| - |V_G| + 1}$ or them are mutually non-switching equivalent.
 
 \begin{theorem}\label{lem1:eq-classes}
     Let $G$ be a simple unsigned connected graph with $n$ vertices and $m$ edges. There are $2^{m - n + 1}$ mutually non-switching equivalent graphs on $G$.
@@ -20,12 +20,86 @@ A \textit{canonical form} of a graph $G$ is a graph isomorphic to $G$ such that 
 
 The \textit{cycle space} of a graph is the collection of its Eulerian (even-degree) spanning subgraphs. It can be described as a vector space over the two-element Galois field: the elements are Eulerian subgraphs, the additive operation is symmetric difference (given two graphs the result contains edges that are in exactly one of them) and trivial scalar multiplication. Cycles are trivial elements of the cycle space because each Eulerian subgraph is the sum of some cycles in the context of this vector space. Consequently, there must be a \textit{cycle basis}, a set of linearly independent cycles that generates this cycle space.
 
-\section{The Conversion}
+\section{Transformation}
 
 Cycles behave well under both isomorphism and vertex switching. Two isomorphic graphs have the same number of cycles of the same length and the balance of cycles is consistent under vertex switching so two isomorphic \textit{signed} graphs will have the same number of balanced and unbalanced cycles of the same length. The idea is to consider all cycles of progressively bigger length until we construct a set that generates the whole cycle space. Given this set of cycles we construct an unsigned graph and show that two signed graphs are switching-isomorphic if and only if they are isomorphic after processed in the following way.
 
 \begin{theorem}\label{lem2:conversion}
-    Starting with the unsigned underlying graph. for each cycle we add one \textit{cycle vertex} and connect it to each vertex of the original cycle. We represent their balance with \textit{balance vertices}, to each balanced cycle vertex we add a tail of length one and unbalanced cycles will have a tail of length two. Signed graphs with minimal degree three or more are switching-isomorphic if and only if they are isomorphic after processed this way.
+    Starting with the unsigned underlying graph, for each cycle we add one \textit{cycle vertex} and connect it to each vertex of the original cycle. We represent their balance with \textit{tails}, each balanced cycle vertex will have a tail of length one and unbalanced cycles will have a tail of length two. Signed graphs with minimal degree three or more are switching-isomorphic if and only if they are isomorphic after processed this way.
 \end{theorem}
 
-\textit{Proof.} The balance "tails" are either a vertex of degree one or an additional vertex of degree two. Since degrees of vertices are preserved under isomorphism and both original vertices vertices and cycle vertices have minimal degree three, balanced tails will be projected only onto balanced tails and unbalanced tails onto unbalanced tails. By extension cycle vertices will be projected only onto cycle vertices, because each tail is connected to exactly one cycle vertex. Therefore the original vertices will also be projected only onto each other and the potential isomorphism reduced to the original vertices will be valid.
+\textit{Proof.} The balance tails are either a vertex of degree one or an additional vertex of degree two. Since degrees of vertices are preserved under isomorphism and both original vertices vertices and cycle vertices have minimal degree three, balanced tails will be projected only onto balanced tails and unbalanced tails onto unbalanced tails. By extension cycle vertices will be projected only onto cycle vertices, because each tail is connected to exactly one cycle vertex. Consequently the original vertices will also be projected only onto each other.
+
+Any isomorphism between two signed graphs transformed this way consists of two parts. Based on the above, reduction to the set of original vertices results in a correct isomorphism between the underlying graphs. The part that is projecting cycle vertices and tails ensures that the signatures are switching-equivalent. \qed
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        \begin{scope}[every node/.style={circle,draw,fill=black}]
+            \node (1)  at (0,0) {};
+            \node (2)  at (3,0) {};
+            \node (3)  at (0,-3) {};
+            \node (4)  at (3,-3) {};
+        \end{scope}
+        \node (cheat) at (-1.5,1.2) {};
+        \node (cheat2) at (3.8,-5.2) {};
+        \begin{scope}[every edge/.style={draw,very thick}]
+            \path
+                (1) edge (2)
+                (2) edge [dashed] (3)
+                (3) edge (1)
+                (2) edge (4)
+                (3) edge [dashed] (4);
+        \end{scope}
+    \end{tikzpicture}
+    \hspace{0.1\textwidth}
+    \begin{tikzpicture}
+        \begin{scope}[every node/.style={circle,draw,fill=black}]
+            \node (1)  at (0,0) {};
+            \node (2)  at (3,0) {};
+            \node (3)  at (0,-3) {};
+            \node (4)  at (3,-3) {};
+        \end{scope}
+        \begin{scope}[every node/.style={circle,draw}]
+            \node (11) [fill=red,color=red]  at (-1,1) {};
+            \node (12) [fill=green,color=green] at (4,-4) {};
+            \node (13) [fill=blue,color=blue] at (1.5,-5) {};
+            \node (14) [fill=green,color=green] at (4.3,-4.5) {};
+            \node (15) [fill=green,color=green] at (4.8,-4.7) {};
+            \node (16) [fill=red,color=red] at (-1.5,1.2) {};
+            \node (17) [fill=blue,color=blue] at (1,-5.2) {};
+        \end{scope}
+        \begin{scope}[every edge/.style={draw,very thick}]
+            \path
+                (1) edge (2)
+                (2) edge (3)
+                (3) edge (1)
+                (2) edge (4)
+                (3) edge (4);
+        \end{scope}
+        \begin{scope}[every edge/.style={draw,thin,color=red}]
+            \path
+                (1) edge (11)
+                (2) edge (11)
+                (3) edge (11)
+                (11) edge (16);
+        \end{scope}
+        \begin{scope}[every edge/.style={draw,thin,color=green}]
+            \path
+                (2) edge (12)
+                (3) edge (12)
+                (4) edge (12)
+                (12) edge (14)
+                (14) edge (15);
+        \end{scope}
+        \begin{scope}[every edge/.style={draw,thin,color=blue}]
+            \path
+                (1) edge (13)
+                (2) edge (13)
+                (3) edge (13)
+                (4) edge (13)
+                (13) edge (17);
+        \end{scope}
+    \end{tikzpicture}
+    \caption[Example of transformation]{Example of a transformation to an unsigned graph.}
+\end{figure}
