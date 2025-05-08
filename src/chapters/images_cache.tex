@@ -143,3 +143,56 @@
 %         \end{tikzpicture}
 %     \caption[Transformation example]{}
 % \end{figure}
+
+% \begin{figu
+% \begin{figure}[h]
+%     \centering
+%     \begin{tikzpicture}
+%         \begin{scope}[every node/.style={circle,draw}]
+%             \node (1)  at (0,0) {1};
+%             \node (2)  at (0,-4) {2};
+%             \node (3) at (2,-2) {3};
+
+%             \node (4) at (4,-2) {4};
+
+%             \node (5)  at (6,0) {5};
+%             \node (6)  at (6,-4) {6};
+%             \node (7) at (8,-2) {7};
+
+%             \node (9) at (10,-2) {8};
+%             \node (10)  at (12,0) {9};
+%             \node (11)  at (12,-4) {10};
+%             \node [below left=3pt of 1, color=red] {9};
+%             \node [above left=3pt of 2, color=red] {10};
+%             \node [left=3pt of 3, color=red] {8};
+%             \node [right=3pt of 4, color=red] {7};
+%             \node [below=3pt of 5, color=red] {5};
+%             \node [right=3pt of 9, color=red] {3};
+%             \node [left=3pt of 7, color=red] {4};
+%             \node [above=3pt of 6, color=red] {6};
+%             \node [above right=3pt of 11, color=red] {2};
+%             \node [below right=3pt of 10, color=red] {1};
+
+%         \end{scope}
+%         \node (cheat) at (-1.5,1.2) {};
+%         \node (cheat2) at (3.8,-5.2) {};
+%         \begin{scope}[every edge/.style={draw,very thick}]
+%             \path
+%                 (1) edge [double distance=3pt] (2)
+%                 (1) edge (3)
+%                 (2) edge (3)
+%                 (3) edge [dashed] (4)
+%                 (4) edge (5)
+%                 (4) edge (6)
+%                 (5) edge (7)
+%                 (6) edge (7)
+%                 (7) edge (9)
+%                 (9) edge (10)
+%                 (9) edge (11)
+%                 (10) edge [double distance=3pt] (11);
+%         \end{scope}
+%     \end{tikzpicture}
+%     \caption[Example of an incorrect isomorphism allowed by the weaker definition]{Example of an incorrect isomorphism allowed by the weaker definition. Projecting black vertices onto red vertices doesn't change the sign of cycles and yet it is not a switching isomorphism}
+% \end{figure}
+
+% We already know that switching doesn't change the balance of cycles so switching equivalence $\implies$ same cycle balance is trivial. For the other direction we will use the definition of a switching equivalence class.

@@ -53,7 +53,7 @@ The typical colouring problem is to find the minimum number of colours required 
 
 For unsigned graphs these numbers are known.
 
-\begin{theorem}[Brooks\cite{brooks}]
+\begin{theorem}[Brooks \cite{brooks}]
     The chromatic number of a connected graph $G$ is $\Delta(G)$ for all graphs except complete graphs and cycles of odd length, where the chromatic number is $\Delta(G) + 1$.
 \end{theorem}
 
@@ -98,9 +98,9 @@ $$\Gamma ^{\theta} = (G, \sigma ^{\theta}); ~~ \sigma ^{\theta} (uv) = \theta (u
 
 If a signed graph can be obtained from another signed graph by switching, they are considered \textit{switching equivalent}. Switching equivalence is an equivalence relation and thus forms equivalence classes on $\mathcal{S} (G)$. It makes sense to study properties of signed graphs that behave consistently under switching. An example of such a property is the signs of cycles. Switching doesn't change the sign of cycles because if a switched vertex is a part of a cycle, it will reverse the sign of two edges on that cycle leaving the sign product the same. In fact, the sign (or balance, defined below) of cycles is an alternative definition of a switching equivalence class, each combination of balance among a set of cycles that form a cycle space basis yields the same equivalence classes as the method used in this thesis and defined later. It is also important to point out that switching a set of vertices is equivalent to a sequence of one-vertex switches.
 
-Directly related to vertex switching is the notion of \textit{balance}. A cycle is \textit{balanced} when the product of signs of its edges is positive and \textit{unbalanced} otherwise. A signed graph $\Gamma$ is balanced when each cycle in $\Gamma$ is balanced. It is \textit{antibalanced} if each cycle is unbalanced.
+Directly related to vertex switching is the notion of \textit{balance}. A cycle is \textit{balanced} when the product of signs of its edges is positive and \textit{unbalanced} otherwise. A signed graph $\Gamma$ is balanced when each cycle in $\Gamma$ is balanced. It is \textit{antibalanced} if each cycle is unbalanced. Note that balanced doesn't imply \textit{all-positive}, there are balanced graphs with negative edges (see \cref{fig:balanced}).
 
-\begin{theorem}[Harary]\label{th:harary}
+\begin{theorem}[Harary \cite{harary}]\label{th:harary}
     A signed graph is balanced if and only if
     \begin{enumerate}
         \item for every pair of vertices, all paths between these vertices have the same sign
@@ -110,7 +110,7 @@ Directly related to vertex switching is the notion of \textit{balance}. A cycle 
     This is a generalization of the earlier mentioned bipartite graph theorem (\Cref{th:bipartite}).
 \end{theorem}
 
-\begin{figure}[h]
+\begin{figure}[h]\label{fig:balanced}
     \centering
     \begin{tikzpicture}
         \begin{scope}[every node/.style={circle,draw,fill=black}]
@@ -209,41 +209,45 @@ An edge coloring of a signed graph is \textit{proper} if, just as with unsigned 
         \begin{scope}[every node/.style={circle,draw,fill=black}]
             \node (1) [label=above right:1, label=below left:0] at (0,0) {};
             \node (2) [label=above left:1, label=below right:0] at (3,0) {};
-            \node (3) [label=above left:0, label=below right:1] at (0,-3) {};
+            \node (3) [label={[text=magenta]above left:0}, label={[text=magenta]below right:1},red] at (0,-3) {};
             \node (4) [label=above right:0, label=below left:1] at (3,-3) {};
         \end{scope}
         \node (ar) at (2.2,-0.3) {-1};
-        \node (bl) at (0.3, -2.2) {-1};
+        \node (bl) [red] at (0.3, -2.2) {-1};
         \begin{scope}[every edge/.style={draw,very thick}]
             \path
                 (1) edge (2)
-                (2) edge [] (3)
-                (3) edge [dashed] (1)
+                (2) edge [magenta] (3)
+                (3) edge [dashed,magenta] (1)
                 (2) edge (4)
-                (3) edge [] (4);
+                (3) edge [magenta] (4);
         \end{scope}
     \end{tikzpicture}
     \caption[Example of a signed edge coloring]{Example of a proper signed edge coloring on the left. We obtain the graph on the right by switching the bottom left vertex and the coloring remains correct and proper.}
 \end{figure}
 
-Behr \cite{behr-edge-colouring} proved the signed version of the Vizing's theorem.
-
 \section{Motivation}
+
+Behr proved a signed version of the Vizing's theorem.
+
+\begin{theorem}[Signed Vizing's theorem \cite{behr-edge-colouring}]
+    The chromatic index of a simple \textit{signed} graph $\Gamma$ is $\Delta(\Gamma)$ or $\Delta(\Gamma) + 1$.
+\end{theorem}
+
+This opens the door for research into edge 3-coloring and cubic signed snarks.
 
 \say{In the study of various important and difficult problems in graph theory (such as the cycle double cover conjecture and the 5-flow conjecture), one encounters an interesting but somewhat mysterious variety of graphs called snarks. In spite of their simple definition [\dots] and over a century long investigation, their properties and structure are largely unknown.} --- Chladný, Škoviera \cite{skoviera-citat}
 
-By Vizing's theorem, cubic graphs are edge-colourable either with three ("class one" graphs) or four colours ("class two" graphs). The exact definition of a snark may vary from paper to paper but a snark is essentially a cubic graph with chromatic index four (its edges can't be coloured with three colours). Every cubic graph with a loop or a bridge is a "snark", triangles (cycles of length three) can be contracted into a single vertex and cycles of length four can also be simplified. Therefore many definitions forbid these properties by considering true snarks only graphs with girth (length of the shortest cycle) at least five. Even more strongly, only cyclically 4-edge-connected graphs are considered (there is no subset of three or fewer edges such that their removal will disconnect the graph into two subgraphs each containing a cycle). One of the alternative formulations of the four colour theorem is that each snark is non-planar. Snarks are important in a multitude of graph theory areas and thus it makes sense to investigate the reach of signed snarks too.
+The exact definition of a snark may vary from paper to paper but a snark is essentially a cubic graph with chromatic index four (its edges can't be coloured with three colours). Every cubic graph with a loop or a bridge is trivially a snark, triangles (cycles of length three) can be contracted into a single vertex and cycles of length four can also be simplified. Therefore many definitions forbid these properties by considering true snarks only graphs with girth (length of the shortest cycle) at least five. Even stronger, sometimes only cyclically 4-edge-connected graphs are considered (there is no subset of three or fewer edges such that their removal will disconnect the graph into two subgraphs each containing a cycle). One of the alternative formulations of the four colour theorem is that each snark is non-planar.
+
+Signed snarks, however, are not subject to the same trivial cases or reductions. For instance, signed graphs with loops or bridges might have colorable signatures and only balanced triangles can be contracted into one vertex. That is why we will be considering any connected cubic signed graph with chromatic index 4 a \textit{signed snark}.
 
 \section{Previous research}
 
-In \textit{The chromatic number of a signed graph}\cite{chromatic-number} Máčajová et al. continue Zaslavsky's research by studying the properties of the chromatic number of signed graphs, ultimately proving a signed version of the famous Brooks'\cite{brooks} theorem.
+Máčajová et al. expanded upon Zaslavsky's research by studying the properties of the chromatic number of signed graphs, ultimately proving a signed version of the famous Brooks' \cite{brooks} theorem.
 
 \begin{theorem}[Signed Brooks' Theorem]\label{th:brooks}
     Let $\Gamma$ be a simple connected signed graph. If $\Gamma$ is not a balanced complete graph, a balanced odd circuit or an unbalanced even circuit, then $\chi(\Gamma) \leq \Delta(\Gamma)$.
 \end{theorem}
 
-\textit{Edge colouring signed graphs} defines a version of the signed edge colouring and proves a signed version of the equally fundamental Vizing's theorem.
-
-\begin{theorem}[Signed Vizing's Theorem]\label{th:vizing}
-    Let $\Gamma$ be a simple signed graph. The chromatic index of $\Gamma$ is $\Delta(\Gamma)$ or $\Delta(\Gamma) + 1$.
-\end{theorem}
+In addition to the Signed Vizing's theorem Behr \cite{behr-edge-colouring} proved that there is a bijection between proper edge colorings of $\Gamma$ and proper vertex colorings of the negative of the line graph of $\Gamma$.

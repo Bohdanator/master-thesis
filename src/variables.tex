@@ -40,22 +40,21 @@
 }
 
 \newcommand{\thesisabstractsk}{
-    Signované grafy definoval v roku 1953 Frank Harary ako model na štúdium sociálnych sietí. Problém farbenia signovaných grafov nebol preskúmaný do roku 1982, kedy Thomas Zaslavsky zverejnil prvé výsledky. Prepínanie vrcholov a izomorfizmus rozdeľuje signované grafy do tried ekvivalencie. V tejto práci prezentujeme algoritmus na generovanie prepínavo-izomorfne neekvivalentných signovaných grafov a algoritmus na konverziu problému hranového farbenia na 3SAT. Kombináciou týchto algoritmov vieme generovať malé 3-hranovo-nezafarniteľné signované kubické grafy a formulovať pozorovania o probléme hranového farbenia.
+    Signované grafy definoval v roku 1953 Frank Harary ako model na štúdium sociálnych sietí. Problém farbenia signovaných grafov nebol preskúmaný do roku 1982, kedy Thomas Zaslavsky zverejnil prvé výsledky. Prepínanie vrcholov rozdeľuje signované grafy do tried ekvivalencie. V tejto práci prezentujeme algoritmus na generovanie neekvivalentných signovaných grafov v kontexte prepínania a izomorfizmu a algoritmus na určenie chromatického čísla signovaného grafu. Kombináciou týchto algoritmov generujeme malé 3-hranovo-nezafarniteľné signované kubické grafy a uľahčujeme budúci výskum tejto problematiky.
 }
 
 \newcommand{\thesisabstracten}{
-    Signed graphs were defined by Frank Harary in year 1953 as a model for studying social networks. The problem of colouring, however, was not explored until 1982 when Thomas Zaslavsky published his first results. Vertex switching and isomorphism creates equivalence classes on signed graphs where each graph in a class can be switched and/or projected onto each other graph. In this thesis we present an algorithm for generating non-switching-isomorphic-equivalent signed graphs and an algorithm for edge colouring to 3SAT conversion. Combining these algorithms allows us to generate small non-3-edge-colourable cubic signed graphs and formulate some observations about the problem of edge colouring.
+    Signed graphs were defined by Frank Harary in year 1953 as a model for studying social networks. The problem of signed colouring, however, was not explored until 1982 when Thomas Zaslavsky published his first results. Vertex switching creates equivalence classes on signed graphs. In this thesis we present an algorithm for generating non-equivalent signed graphs under switching isomorphism and an algorithm to determine the chromatic index of a signed graph. Combining these algorithms allows us to generate small non-3-edge-colourable cubic signed graphs and make the systematic research in this topic easier.
 }
 
-\newcommand{\thesiskeywordssk}{signovaný graf, kubický graf, hranové farbenie, snark, prepínanie vrcholov, prepínavo-izomorfne-neekvivalentné grafy, generovanie grafov}
+\newcommand{\thesiskeywordssk}{signovaný graf, kubický graf, signované hranové farbenie, snark, prepínanie vrcholov, prepínací izomorfizmus, generovanie grafov, neekvivalentné grafy}
 
-\newcommand{\thesiskeywordsen}{signed graph, cubic graph, edge colouring, snark, vertex switching, non-switching-equivalent graphs, generating graphs}
+\newcommand{\thesiskeywordsen}{signed graph, cubic graph, signed edge coloring, snark, vertex switching, switching isomorphism, generating graphs, non-equivalent graphs}
 
 \newcommand{\thesischapters}{
     \input chapters/00-introduction.tex
     \input chapters/preliminaries.tex
     \input chapters/switching-isomorphism.tex
-    \input chapters/generation.tex
     \input chapters/analysis.tex
     \input chapters/conclusion.tex
 }
